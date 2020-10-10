@@ -37,16 +37,16 @@ $presence-idle: rgb(172, 172, 172);
 /**
  * Toolbar
  */
-$newToolbarBackgroundColor: rgba(22, 38, 55, 0.8);
+$newToolbarBackgroundColor: rgba(22, 38, 55, 0.6);
 $newToolbarButtonHoverColor: rgba(255, 255, 255, 0.15);
 $newToolbarButtonToggleColor: rgba(255, 255, 255, 0.2);
 $AOTToolbarButtonHoverColor: rgba(14, 20, 35, 0.6);
 $AOTToolbarButtonToggleColor: rgba(14, 20, 35, 1);
-$newToolbarFontSize: 24px;
+$newToolbarFontSize: 14px;
 $newToolbarHangupFontSize: 32px;
-$newToolbarSize: 40px;
-$newToolbarSizeWithPadding: calc(#{$newToolbarSize} + 24px);
-$toolbarTitleFontSize: 19px;
+$newToolbarSize: 20px;
+$newToolbarSizeWithPadding: calc(#{$newToolbarSize} + 10px);
+$toolbarTitleFontSize: 15px;
 $overflowMenuBG: initial;
 $overflowMenuItemHoverBG: #313D52;
 $overflowMenuItemHoverColor: #B8C7E0;

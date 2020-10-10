@@ -446,6 +446,12 @@ export default class RemoteVideo extends SmallVideo {
         });
     }
 
+    // Sally - new function to set the order style of the remote video container
+
+    updateOrderCss(order) {
+        this.$container.css('order', order);
+    }
+
     /**
      * Removes remote video menu element from video element identified by
      * given <tt>videoElementId</tt>.

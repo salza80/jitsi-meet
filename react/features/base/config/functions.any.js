@@ -10,6 +10,14 @@ import { _CONFIG_STORE_PREFIX } from './constants';
 import INTERFACE_CONFIG_WHITELIST from './interfaceConfigWhitelist';
 import logger from './logger';
 
+// Sally - For local testing only  -- REMOVE 
+import interfaceConfigOverride from '../../../../interface_config'
+
+var configOverride = {
+    startWithAudioMuted: true,
+    startWithVideoMuted: true
+}
+
 // XXX The function getRoomName is split out of
 // functions.js because it is bundled in both app.bundle and
 // do_external_connect, webpack 1 does not support tree shaking, and we don't
@@ -39,34 +47,6 @@ export function createFakeConfig(baseURL: string) {
     };
 }
 
-/* eslint-disable max-params, no-shadow */
-
-/**
- * Overrides JSON properties in {@code config} and
- * {@code interfaceConfig} Objects with the values from {@code newConfig}.
- * Overrides only the whitelisted keys.
- *
- * @param {Object} config - The config Object in which we'll be overriding
- * properties.
- * @param {Object} interfaceConfig - The interfaceConfig Object in which we'll
- * be overriding properties.
- * @param {Object} loggingConfig - The loggingConfig Object in which we'll be
- * overriding properties.
- * @param {Object} json - Object containing configuration properties.
- * Destination object is selected based on root property name:
- * {
- *     config: {
- *         // config.js properties here
- *     },
- *     interfaceConfig: {
- *         // interface_config.js properties here
- *     },
- *     loggingConfig: {
- *         // logging_config.js properties here
- *     }
- * }.
- * @returns {void}
- */
 export function overrideConfigJSON(
         config: ?Object, interfaceConfig: ?Object, loggingConfig: ?Object,
         json: Object) {
@@ -115,6 +95,8 @@ export function overrideConfigJSON(
  * @returns {Object} - The result object only with the keys
  * that are whitelisted.
  */
+
+
 function _getWhitelistedJSON(configName, configJSON) {
     if (configName === 'interfaceConfig') {
         return _.pick(configJSON, INTERFACE_CONFIG_WHITELIST);
@@ -209,6 +191,14 @@ export function setConfigFromURLParams(
 
         base[last] = params[param];
     }
+
+    // Sally  local testing only...remove later
+
+    var j = {config : configOverride, interfaceConfig: interfaceConfigOverride}
+
+    overrideConfigJSON(config, interfaceConfig, loggingConfig, j);
+
+    // end testing only
 
     overrideConfigJSON(config, interfaceConfig, loggingConfig, json);
 }

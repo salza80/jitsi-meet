@@ -76,7 +76,7 @@ export function hideToolbox(force: boolean = false): Function {
             timeoutMS
         } = state['features/toolbox'];
 
-        if (alwaysVisible) {
+        if (alwaysVisible || interfaceConfig.TOOLBAR_ALWAYS_VISIBLE) {
             return;
         }
 
@@ -133,7 +133,7 @@ export function showToolbox(timeout: number = 0): Object {
 
             // If the Toolbox is always visible, there's no need for a timeout
             // to toggle its visibility.
-            if (!alwaysVisible) {
+            if (!alwaysVisible || !interfaceConfig.TOOLBAR_ALWAYS_VISIBLE) {
                 dispatch(
                     setToolboxTimeout(
                         () => dispatch(hideToolbox()),

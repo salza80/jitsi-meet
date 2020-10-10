@@ -36,10 +36,14 @@ export function setParticipantsWithScreenShare(participantIds: Array<string>) {
  *     enabled: ?boolean
  * }}
  */
+
+/**
+ * Sally - Force tileview ALWAYS
+ */
 export function setTileView(enabled: ?boolean) {
     return {
         type: SET_TILE_VIEW,
-        enabled
+        enabled: enabled
     };
 }
 

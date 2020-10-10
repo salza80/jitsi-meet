@@ -135,6 +135,7 @@ class Avatar<P: Props> extends PureComponent<P, State> {
         const {
             _initialsBase,
             _loadableAvatarUrl,
+            _useDefaultIcon,
             className,
             colorBase,
             dynamicColor,
@@ -168,7 +169,7 @@ class Avatar<P: Props> extends PureComponent<P, State> {
             avatarProps.url = effectiveURL;
         }
 
-        const initials = getInitials(_initialsBase);
+        if (!_useDefaultIcon) {
 
         if (initials) {
             if (dynamicColor) {
@@ -210,9 +211,14 @@ export function _mapStateToProps(state: Object, ownProps: Props) {
     const _participant: ?Object = participantId && getParticipantById(state, participantId);
     const _initialsBase = _participant?.name ?? displayName;
 
+    // Sally -- if username > '' and not trainer or 'inactive'
+    // load the audi user icon (replaced from default)
+    const _useDefaultIcon = _participant && _participant.name > '' && _participant.name !== 'trainer' && _participant.name !== 'inactive' ? true : false
+
     return {
         _initialsBase,
         _loadableAvatarUrl: _participant?.loadableAvatarUrl,
+        _useDefaultIcon,
         colorBase: !colorBase && _participant ? _participant.id : colorBase
     };
 }

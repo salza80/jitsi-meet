@@ -48,9 +48,9 @@
     }
 
     .toolbox-background {
-        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+        background-color: rgba(0, 0, 0, 0.9);
         transition: bottom .3s ease-in;
-        height: 160px;
+        height: 100%;
         width: 100%;
         bottom: -160px;
         pointer-events: none;
@@ -64,7 +64,7 @@
         justify-content: space-between;
         margin-left: auto;
         margin-right: auto;
-        padding: 20px 16px;
+        padding: 10px 10px;
         position: relative;
         width: 100%;
         z-index: $toolbarZ;
@@ -76,47 +76,79 @@
             width: 33%;
         }
 
-        .button-group-center {
+        .button-group-center, .button-group-right {
             justify-content: center;
+
+            // hide additional button on toolbox mute buttons
+
+            .settings-button-small-icon {
+                    display: none !important;
+            }
 
             .toolbox-button {
 
                 .toolbox-icon {
-                    background-color: #fff;
-                    border-radius: 50%;
-                    border: 1px solid #d1dbe8;
-                    margin: 0px 4px;
-                    width: 38px;
-                    height: 38px;
-        
-                    &:hover {
-                        background-color: #daebfa;
-                        border: 1px solid #daebfa;
+                    display: flex;
+                    border-radius: 5px;
+                    flex-direction: column;
+                    font-size: 24px;
+                    height: $newToolbarSize;
+                    justify-content: center;
+                    width: $newToolbarSize;
+                    background-color: transparent;
+                    border: none;
+
+                    &:hover, &:focus, &.toggled {
+                        background-color: transparent !important;
+                        border: none !important;
                     }
-        
-                    &.toggled {
-                        background: #2a3a4b;
-                        border: 1px solid #5e6d7a;
-    
+            
+                    &.disabled {
+                        cursor: initial !important;
+                        background-color: transparent !important;
+                        border: none;
                         svg {
-                            fill: #fff;
+                            fill: #fff !important;
                         }
-        
-                        &:hover {
-                            background-color: #5e6d7a;
-                        }
-                    }
-        
-                    &.disabled, .disabled & {
-                        cursor: initial;
-                        color: #fff;
-                        background-color: #a4b8d1;
-                    }
-    
-                    svg {
-                        fill: #5e6d7a;
                     }
                 }
+
+                // .toolbox-icon {
+                //     background-color: #fff;
+                //     border-radius: 50%;
+                //     border: 1px solid #d1dbe8;
+                //     margin: 0px 4px;
+                //     width: 38px;
+                //     height: 38px;
+        
+                //     &:hover {
+                //         background-color: #daebfa;
+                //         border: 1px solid #daebfa;
+                //     }
+        
+                //     &.toggled {
+                //         background: #2a3a4b;
+                //         border: 1px solid #5e6d7a;
+    
+                //         svg {
+                //             fill: #fff;
+                //         }
+        
+                //         &:hover {
+                //             background-color: #5e6d7a;
+                //         }
+                //     }
+        
+                //     &.disabled, .disabled & {
+                //         cursor: initial;
+                //         color: #fff;
+                //         background-color: #a4b8d1;
+                //     }
+    
+                //     svg {
+                //         fill: #5e6d7a;
+                //     }
+                // }
 
                 &:nth-child(2) {
                     .toolbox-icon {

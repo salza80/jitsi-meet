@@ -1,3 +1,4 @@
+import { getAllVisibleThumbnails } from '../../../modules/UI/videolayout/VideoLayout'
 // @flow
 
 import {
@@ -96,19 +97,42 @@ export function calculateThumbnailSizeForTileView({
 }: Object) {
     // The distance from the top and bottom of the screen, as set by CSS, to
     // avoid overlapping UI elements.
-    const topBottomPadding = 200;
+    
+    // Sally - reduce padding
+    // const topBottomPadding = 200;
+    const topBottomPadding = 40;
 
     // Minimum space to keep between the sides of the tiles and the sides
     // of the window.
-    const sideMargins = 30 * 2;
+    // Sally - remove spacing
+    // const sideMargins = 30 * 2;
+    const sideMargins = 0
 
-    const verticalMargins = visibleRows * 10;
+    const verticalMargins = visibleRows * 0;
     const viewWidth = clientWidth - sideMargins;
     const viewHeight = clientHeight - topBottomPadding - verticalMargins;
-    const initialWidth = viewWidth / columns;
+
+    let initialWidth = viewWidth / columns;
+
+    // Sally  -  how many visible thumbnails.. if only one thumb, use full width!
+    const thumbs = getAllVisibleThumbnails();
+    if (thumbs.length === 1) {
+        initialWidth = viewWidth;
+    }
+
+    console.log('Recalc debug')
+    console.log(`${clientHeight}-${clientWidth}-${visibleRows}-${columns}-${thumbs.length}`)
     const aspectRatioHeight = initialWidth / TILE_ASPECT_RATIO;
-    const height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
-    const width = Math.floor(TILE_ASPECT_RATIO * height);
+
+    // Sally - get the max height -- not min...fill the screen where possible
+    // let height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
+    // let width = Math.floor(TILE_ASPECT_RATIO * height);
+
+
+    // Sally override, allways full height. width is either full width when only one video, or half (num colums = 2)
+    let height = viewHeight;
+    let width = initialWidth;
+
 
     return {
         height,

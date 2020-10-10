@@ -2,7 +2,6 @@
 
 import { getPinnedParticipant, getParticipantCount } from '../base/participants';
 import { isYoutubeVideoPlaying } from '../youtube-player/functions';
-
 import { LAYOUTS } from './constants';
 
 declare var interfaceConfig: Object;
@@ -51,7 +50,8 @@ export function getTileViewGridDimensions(state: Object, maxColumns: number = ge
     // When in tile view mode, we must discount ourselves (the local participant) because our
     // tile is not visible.
     const { iAmRecorder } = state['features/base/config'];
-    const numberOfParticipants = state['features/base/participants'].length - (iAmRecorder ? 1 : 0);
+
+     const numberOfParticipants = state['features/base/participants'].length - (iAmRecorder ? 1 : 0);
 
     const columnsToMaintainASquare = Math.ceil(Math.sqrt(numberOfParticipants));
     const columns = Math.min(columnsToMaintainASquare, maxColumns);
@@ -74,6 +74,10 @@ export function getTileViewGridDimensions(state: Object, maxColumns: number = ge
  */
 export function shouldDisplayTileView(state: Object = {}) {
     const participantCount = getParticipantCount(state);
+
+    // Sally - always display tile view
+    return true;
+    // end Sally update
 
     // In case of a lonely meeting, we don't allow tile view.
     // But it's a special case too, as we don't even render the button,
