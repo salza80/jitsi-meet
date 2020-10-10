@@ -110,7 +110,7 @@ var interfaceConfig = {
     /**
      * Hide the invite prompt in the header when alone in the meeting.
      */
-    HIDE_INVITE_MORE_HEADER: false,
+    HIDE_INVITE_MORE_HEADER: true,
 
     INITIAL_TOOLBAR_TIMEOUT: 20000,
     JITSI_WATERMARK_LINK: 'https://jitsi.org',
@@ -177,7 +177,7 @@ var interfaceConfig = {
      */
     SUPPORT_URL: 'https://community.jitsi.org/',
 
-    TOOLBAR_ALWAYS_VISIBLE: false,
+    TOOLBAR_ALWAYS_VISIBLE: true,
 
     /**
      * The name of the toolbar buttons to display in the toolbar, including the
@@ -190,12 +190,17 @@ var interfaceConfig = {
      * - it's impossible to control the placement of buttons
      * - 'desktop' controls the "Share your screen" button
      */
+    // TOOLBAR_BUTTONS: [
+    //     'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+    //     'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
+    //     'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+    //     'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+    //     'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
+    // ],
+
     TOOLBAR_BUTTONS: [
-        'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
-        'fodeviceselection', 'hangup', 'profile', 'chat', 'recording',
-        'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-        'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-        'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
+        'microphone', 'camera', 'desktop',
+        'sharedvideo', 'settings', 'tileview',  'download', 'help', 'mute-everyone', 'videoquality'
     ],
 
     TOOLBAR_TIMEOUT: 4000,
@@ -226,13 +231,14 @@ var interfaceConfig = {
     /**
      * When enabled, the kick participant button will not be presented for users without a JWT
      */
-    // HIDE_KICK_BUTTON_FOR_GUESTS: false,
+    HIDE_KICK_BUTTON_FOR_GUESTS: true,
 
     /**
      * How many columns the tile view can expand to. The respected range is
      * between 1 and 5.
      */
-    // TILE_VIEW_MAX_COLUMNS: 5,
+
+    TILE_VIEW_MAX_COLUMNS: 2,
 
     /**
      * Specify custom URL for downloading android mobile app.
