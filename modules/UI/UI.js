@@ -1,6 +1,5 @@
 /* global APP, $, config */
 
-
 const UI = {};
 
 import EventEmitter from 'events';

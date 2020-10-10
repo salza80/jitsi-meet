@@ -1328,8 +1328,10 @@ class Toolbox extends Component<Props, State> {
                                 tooltip = { t('toolbar.chat') } />
                             <ChatCounter />
                         </div> }
+                    {/* Sally - move shareddesktop button to right group
                     { buttonsLeft.indexOf('desktop') !== -1
                         && this._renderDesktopSharingButton() }
+                    */}
                     { buttonsLeft.indexOf('raisehand') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
@@ -1342,13 +1344,21 @@ class Toolbox extends Component<Props, State> {
                             && <ClosedCaptionButton />
                     }
                 </div>
+               {/* Sally - Moved buttons to right group
                 <div className = 'button-group-center'>
                     { this._renderAudioButton() }
                     <HangupButton
                         visible = { this._shouldShowButton('hangup') } />
                     { this._renderVideoButton() }
                 </div>
+                */}
                 <div className = 'button-group-right'>
+
+                     {/* Sally - share screen, mic and camera buttons to right group and reorder */}
+                     { buttonsLeft.indexOf('desktop') !== -1
+                        && this._renderDesktopSharingButton() }
+                    { this._renderVideoButton() }
+                    { this._renderAudioButton() }
                     { buttonsRight.indexOf('localrecording') !== -1
                         && <LocalRecordingButton
                             onClick = {
@@ -1424,11 +1434,18 @@ function _mapStateToProps(state) {
     if (enableFeaturesBasedOnToken) {
         // we enable desktop sharing if any participant already have this
         // feature enabled
+       
+
         desktopSharingEnabled = getParticipants(state)
             .find(({ features = {} }) =>
                 String(features['screen-sharing']) === 'true') !== undefined;
         desktopSharingDisabledTooltipKey = 'dialog.shareYourScreenDisabled';
     }
+
+     // Sally - And ONLY enable desktop sharing If the current participant is the trainer
+        if (localParticipant.name !== 'trainer') {
+            desktopSharingEnabled = false;
+        }
 
     // NB: We compute the buttons again here because if URL parameters were used to
     // override them we'd miss it.

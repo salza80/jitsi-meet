@@ -13,6 +13,7 @@ import {
 import { MiddlewareRegistry } from '../base/redux';
 import { TRACK_ADDED, TRACK_REMOVED } from '../base/tracks';
 import { SET_FILMSTRIP_VISIBLE } from '../filmstrip';
+import { clientResized } from '../base/responsive-ui/actions'
 
 import './middleware.any';
 
@@ -32,6 +33,11 @@ MiddlewareRegistry.register(store => next => action => {
     // being connected to the store for updates.
     const result = next(action);
 
+    const {
+        innerHeight,
+        innerWidth
+    } = window;
+
     switch (action.type) {
     case CONFERENCE_JOINED:
         VideoLayout.mucJoined();
@@ -42,25 +48,66 @@ MiddlewareRegistry.register(store => next => action => {
         break;
 
     case PARTICIPANT_JOINED:
-        if (!action.participant.local) {
+        console.log("joined")
+        console.log(action.participant)
+        // Sally - only add participant if they are the trainer
+        if (!action.participant.local && action.participant.name === 'trainer') {
             VideoLayout.addRemoteParticipantContainer(
                 getParticipantById(store.getState(), action.participant.id));
         }
+
+        // Sally - trigger client resize to force resize of tile view
+        store.dispatch(clientResized(innerWidth, innerHeight));
+
+        VideoLayout.resizeVideoArea();
         break;
 
     case PARTICIPANT_LEFT:
         VideoLayout.removeParticipantContainer(action.participant.id);
+        // Sally - trigger client resize to force resize of tile view
+        store.dispatch(clientResized(innerWidth, innerHeight));
+        VideoLayout.resizeVideoArea();
         break;
 
     case PARTICIPANT_UPDATED: {
         // Look for actions that triggered a change to connectionStatus. This is
         // done instead of changing the connection status change action to be
         // explicit in order to minimize changes to other code.
+        console.log('participant updated')
+        console.log(action.participant)
+        // Sally - remove participant if name = inactive or blank
+        //       - add participant if name is not inactive or blank
+        //       - if local - set video visible if active or trainer, and invisable if inactive.
+
+        let p = getParticipantById(store.getState(), action.participant.id);
+        console.log(p)
+        if (p) {
+            if (p.local) {
+                if (p.name === undefined || p.name === 'inactive' || p.name === '') {
+                    VideoLayout.setLocalVideoVisible(false);
+                } else {
+                    VideoLayout.setLocalVideoVisible(true);
+                }
+            } else {
+                if (p.name === 'inactive' || p.name === '') {
+                    console.log('remove inactive participant')
+                    VideoLayout.removeParticipantContainer(action.participant.id);
+                } else {
+                    console.log('add active participant')
+                    VideoLayout.addRemoteParticipantContainer(p);
+                }
+            }
+        }
+
         if (typeof action.participant.connectionStatus !== 'undefined') {
             VideoLayout.onParticipantConnectionStatusChanged(
                 action.participant.id,
                 action.participant.connectionStatus);
         }
+
+        // Sally - trigger client resize to force resize of tile view
+        store.dispatch(clientResized(innerWidth, innerHeight));
+        VideoLayout.resizeVideoArea();
         break;
     }
 

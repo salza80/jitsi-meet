@@ -22,6 +22,7 @@ import { VIDEO_CONTAINER_TYPE } from './VideoContainer';
 const logger = Logger.getLogger(__filename);
 
 const remoteVideos = {};
+const remoteStreams={};
 let localVideoThumbnail = null;
 
 let eventEmitter = null;
@@ -42,6 +43,14 @@ function onLocalFlipXChanged(val) {
     if (largeVideo) {
         largeVideo.onLocalFlipXChange(val);
     }
+}
+
+export function getAllVisibleThumbnails() {
+    let thumbs = [];
+    if (localVideoThumbnail && localVideoThumbnail.isVisible()) {
+        thumbs.push(localVideoThumbnail)
+    }
+    return [...thumbs,...Object.values(remoteVideos)];
 }
 
 /**
@@ -69,14 +78,23 @@ function getLocalParticipant() {
 
 const VideoLayout = {
     init(emitter) {
+
+        //Sally - add local video but set it invisible unless trainer
         eventEmitter = emitter;
 
         localVideoThumbnail = new LocalVideo(
             VideoLayout,
             emitter,
             this._updateLargeVideoIfDisplayed.bind(this));
+            let lp = getLocalParticipant()
+
+            // Sally - make video invisible in init except for the trainer
+            if (lp.name !== 'trainer') {
+                this.setLocalVideoVisible(false)
+            } else {this.setLocalVideoVisible(true)}
 
         this.registerListeners();
+        this.hideStats();
     },
 
     /**
@@ -155,11 +173,19 @@ const VideoLayout = {
      * @param {boolean} true to make the local video visible, false - otherwise
      */
     setLocalVideoVisible(visible) {
-        localVideoThumbnail.setVisible(visible);
+        if (localVideoThumbnail) {
+            localVideoThumbnail.setVisible(visible);
+        }
     },
 
     onRemoteStreamAdded(stream) {
         const id = stream.getParticipantId();
+
+        // keep streams (id: { type: stream}})
+        let rs = remoteStreams[id] || {};
+        rs[stream.getType()] = stream
+        remoteStreams[id]=rs
+
         const remoteVideo = remoteVideos[id];
 
         logger.debug(`Received a new ${stream.getType()} stream for ${id}`);
@@ -177,6 +203,7 @@ const VideoLayout = {
             this.onVideoMute(id);
             remoteVideo.updateView();
         }
+        remoteVideo.updateView();
     },
 
     onRemoteStreamRemoved(stream) {
@@ -276,6 +303,11 @@ const VideoLayout = {
      * @returns {void}
      */
     addRemoteParticipantContainer(participant) {
+
+        // Sally - if remote video already exists, don't add it
+        if (remoteVideos[participant.id]) {
+            return;
+        }
         if (!participant || participant.local) {
             return;
         } else if (participant.isFakeParticipant) {
@@ -289,6 +321,8 @@ const VideoLayout = {
             return;
         }
 
+
+
         const id = participant.id;
         const jitsiParticipant = APP.conference.getParticipantById(id);
         const remoteVideo = new RemoteVideo(jitsiParticipant, VideoLayout);
@@ -297,6 +331,8 @@ const VideoLayout = {
 
         this.updateMutedForNoTracks(id, 'audio');
         this.updateMutedForNoTracks(id, 'video');
+        this.hideStats();
+
     },
 
     /**
@@ -310,9 +346,27 @@ const VideoLayout = {
         remoteVideos[id] = remoteVideo;
 
         // Initialize the view
+        // Sally - ensure video and audio streams are added for subsequent adds
+        this.addSavedRemoteStreams(id);
+        this.setRemoteVideoOrder(id);
         remoteVideo.updateView();
     },
 
+    // FIXME: what does this do???
+    // remoteVideoActive(videoElement, resourceJid) {
+    //     logger.info(`${resourceJid} video is now active`, videoElement);
+    //     if (videoElement) {
+    //         $(videoElement).show();
+    //     }
+    //     this._updateLargeVideoIfDisplayed(resourceJid, true);
+    // },
+    //Sally  add all saved remote streams to the remotevideo
+    addSavedRemoteStreams(id) {
+        let rs = remoteStreams[id] || [];
+        for (const streamType in rs) {
+            this.onRemoteStreamAdded(rs[streamType]);
+        }
+    },
     /**
      * On video muted event.
      */
@@ -342,11 +396,30 @@ const VideoLayout = {
             const remoteVideo = remoteVideos[id];
 
             if (remoteVideo) {
-                remoteVideo.updateDisplayName();
+              remoteVideo.updateDisplayName();
+              this.setRemoteVideoOrder(id);
             }
+            
+           
         }
     },
 
+    // Sally - Add function to set the order of a remote video (flex order css)
+    // Sally - this makes sure trainer and active remote video will always be in the correct order, and correct side of localvideo
+
+    setRemoteVideoOrder(id) {
+      const remoteVideo = remoteVideos[id];
+      if (!remoteVideo) {
+        return;
+      }
+      const state = APP.store.getState();
+      const participant = getParticipantById(state, id);
+
+      if(!participant.name) { return };
+      if (participant.name === 'trainer') {
+        remoteVideo.updateOrderCss(-1);
+      } else { remoteVideo.updateOrderCss(2); }
+    },
     /**
      * On dominant speaker changed event.
      *
@@ -354,6 +427,8 @@ const VideoLayout = {
      * @returns {void}
      */
     onDominantSpeakerChanged(id) {
+        // Sally - do not show dominant speaker
+        return;
         getAllThumbnails().forEach(thumbnail =>
             thumbnail.showDominantSpeakerIndicator(id === thumbnail.getId()));
     },

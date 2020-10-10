@@ -6,17 +6,20 @@
      * Add a border around the active speaker to make the thumbnail easier to
      * see.
      */
-    .active-speaker {
-        box-shadow: 0 0 5px 3px $videoThumbnailSelected
-    }
+
+    // Sally - Remove active speaker border
+    // .active-speaker {
+    //     box-shadow: 0 0 5px 3px $videoThumbnailSelected
+    // }
 
     #filmstripRemoteVideos {
         align-items: center;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: calc(100vh - 40px);
         width: 100vw;
+        margin: 0px 0px;
     }
 
     .filmstrip__videos .videocontainer {
@@ -94,11 +97,12 @@
             border: 0;
             box-sizing: border-box;
             display: block;
-            margin: 2px;
+            // Sally - Remove margin on video cotainer
+            margin: 0px !important;
         }
 
         video {
-            object-fit: contain;
+            object-fit: cover;
         }
     }
 
