@@ -102,13 +102,9 @@ export function overrideConfigJSON(
 
 function _getWhitelistedJSON(configName, configJSON) {
     if (configName === 'interfaceConfig') {
-        // Sally - for local testing only REMOVE
-        return _.pick(interfaceConfigOverride, INTERFACE_CONFIG_WHITELIST);
-        // return _.pick(configJSON, INTERFACE_CONFIG_WHITELIST);
+        return _.pick(configJSON, INTERFACE_CONFIG_WHITELIST);
     } else if (configName === 'config') {
-        // Sally - for local testing only REMOVE
-        return _.pick(configOverride, CONFIG_WHITELIST);
-        //return _.pick(configJSON, CONFIG_WHITELIST);
+        return _.pick(configJSON, CONFIG_WHITELIST);
     }
 
     return configJSON;
@@ -198,6 +194,14 @@ export function setConfigFromURLParams(
 
         base[last] = params[param];
     }
+
+    // Sally  local testing only...remove later
+
+    var j = {config : configOverride, interfaceConfig: interfaceConfigOverride}
+
+    overrideConfigJSON(config, interfaceConfig, loggingConfig, j);
+
+    // end testing only
 
     overrideConfigJSON(config, interfaceConfig, loggingConfig, json);
 }
