@@ -64,7 +64,7 @@
         justify-content: space-between;
         margin-left: auto;
         margin-right: auto;
-        padding: 20px 16px;
+        padding: 10px 10px;
         position: relative;
         width: 100%;
         z-index: $toolbarZ;
@@ -76,7 +76,7 @@
             width: 33%;
         }
 
-        .button-group-center {
+        .button-group-center, .button-group-right {
             justify-content: center;
 
             // hide additional button on toolbox mute buttons
