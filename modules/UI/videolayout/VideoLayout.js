@@ -69,12 +69,23 @@ function getLocalParticipant() {
 
 const VideoLayout = {
     init(emitter) {
+
+        // Sally - store emmiter on init
+        this.eventEmitter = emitter
+
+        //Sally - do not add local video on init
         eventEmitter = emitter;
 
         localVideoThumbnail = new LocalVideo(
             VideoLayout,
             emitter,
             this._updateLargeVideoIfDisplayed.bind(this));
+            let lp = getLocalParticipant()
+
+            // Sally - make video invisibale in init except for the trainer
+            if (lp.name !== 'trainer') {
+                this.setLocalVideoVisible(false)
+            }
 
         this.registerListeners();
     },
@@ -282,6 +293,14 @@ const VideoLayout = {
      * @returns {void}
      */
     addRemoteParticipantContainer(participant) {
+        console.log("ADDING REMOTE PARTICIPANT")
+        console.log(participant)
+        console.log(participant.name)
+
+        // Sally - if remote video already exists, don't add it
+        if (remoteVideos[participant.id]) {
+            return;
+        }
         if (!participant || participant.local) {
             return;
         } else if (participant.isFakeParticipant) {

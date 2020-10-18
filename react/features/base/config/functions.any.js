@@ -47,9 +47,6 @@ export function createFakeConfig(baseURL: string) {
     };
 }
 
-
-
-
 export function overrideConfigJSON(
         config: ?Object, interfaceConfig: ?Object, loggingConfig: ?Object,
         json: Object) {

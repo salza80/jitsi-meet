@@ -23,6 +23,10 @@ const TILE_VIEW_SIDE_MARGINS = 10 * 2;
  * }}
  */
 export function setTileViewDimensions(dimensions: Object, windowSize: Object, isChatOpen: boolean) {
+    console.log("setTileViewDimensions")
+    console.log(dimensions)
+    console.log(windowSize)
+
     const { clientWidth, clientHeight } = windowSize;
     let widthToUse = clientWidth;
 
