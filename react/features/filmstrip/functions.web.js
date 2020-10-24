@@ -1,3 +1,4 @@
+import { getAllVisibleThumbnails } from '../../../modules/UI/videolayout/VideoLayout'
 // @flow
 
 import {
@@ -113,11 +114,20 @@ export function calculateThumbnailSizeForTileView({
     const verticalMargins = visibleRows * 0;
     const viewWidth = clientWidth - sideMargins;
     const viewHeight = clientHeight - topBottomPadding - verticalMargins;
-    const initialWidth = viewWidth / columns;
+
+    let initialWidth = viewWidth / columns;
+    console.log('Recalc')
+
+    // Sally  -  how many visible thumbnails.. if only one thumb, use full width!
+    const thumbs = getAllVisibleThumbnails();
+    if (thumbs.length === 1) {
+        initialWidth = viewWidth;
+    }
+
     const aspectRatioHeight = initialWidth / TILE_ASPECT_RATIO;
 
     // Sally - get the max height -- not min...fill the screen where possible
-    const height = Math.floor(Math.max(aspectRatioHeight, viewHeight / visibleRows));
+    const height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
     const width = Math.floor(TILE_ASPECT_RATIO * height);
 
     return {

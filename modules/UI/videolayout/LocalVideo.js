@@ -165,7 +165,10 @@ export default class LocalVideo extends SmallVideo {
     setVisible(visible) {
         // We toggle the hidden class as an indication to other interested parties
         // that this container has been hidden on purpose.
-        this.$container.toggleClass('hidden');
+        // Sally - use add and remove instead of toggle to avoid it getting out of sync
+        if (visible) {
+            this.$container.removeClass('hidden');
+        } else { this.$container.addClass('hidden')}
 
         // We still show/hide it as we need to overwrite the style property if we
         // want our action to take effect. Toggling the display property through
@@ -175,6 +178,10 @@ export default class LocalVideo extends SmallVideo {
         } else {
             this.$container.hide();
         }
+    }
+
+    isVisible() {
+        return !this.$container.hasClass('hidden');
     }
 
     /**

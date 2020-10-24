@@ -13,6 +13,7 @@ import {
 import { MiddlewareRegistry } from '../base/redux';
 import { TRACK_ADDED, TRACK_REMOVED } from '../base/tracks';
 import { SET_FILMSTRIP_VISIBLE } from '../filmstrip';
+import { clientResized } from '../base/responsive-ui/actions'
 
 import './middleware.any';
 
@@ -32,6 +33,11 @@ MiddlewareRegistry.register(store => next => action => {
     // being connected to the store for updates.
     const result = next(action);
 
+    const {
+        innerHeight,
+        innerWidth
+    } = window;
+
     switch (action.type) {
     case CONFERENCE_JOINED:
         VideoLayout.mucJoined();
@@ -50,13 +56,17 @@ MiddlewareRegistry.register(store => next => action => {
                 getParticipantById(store.getState(), action.participant.id));
         }
 
-        if (action.participant.name === 'trainer') {
-            VideoLayout.addLocalParticipantContainer()
-        }
+        // Sally - trigger client resize to force resize of tile view
+        store.dispatch(clientResized(innerWidth, innerHeight));
+
+        VideoLayout.resizeVideoArea();
         break;
 
     case PARTICIPANT_LEFT:
         VideoLayout.removeParticipantContainer(action.participant.id);
+        // Sally - trigger client resize to force resize of tile view
+        store.dispatch(clientResized(innerWidth, innerHeight));
+        VideoLayout.resizeVideoArea();
         break;
 
     case PARTICIPANT_UPDATED: {
@@ -65,9 +75,6 @@ MiddlewareRegistry.register(store => next => action => {
         // explicit in order to minimize changes to other code.
         console.log('participant updated')
         console.log(action.participant)
-
-
-
         // Sally - add participant if name = active
         //       - remove participant if name is not active, and not the trainer
         //       - if local - set video visible if active or trainer, and invisable if inactive.
@@ -95,6 +102,10 @@ MiddlewareRegistry.register(store => next => action => {
                 action.participant.id,
                 action.participant.connectionStatus);
         }
+
+        // Sally - trigger client resize to force resize of tile view
+        store.dispatch(clientResized(innerWidth, innerHeight));
+        VideoLayout.resizeVideoArea();
         break;
     }
 

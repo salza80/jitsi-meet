@@ -43,7 +43,7 @@ export function setParticipantsWithScreenShare(participantIds: Array<string>) {
 export function setTileView(enabled: ?boolean) {
     return {
         type: SET_TILE_VIEW,
-        enabled: true
+        enabled: enabled
     };
 }
 

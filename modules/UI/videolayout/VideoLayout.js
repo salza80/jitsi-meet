@@ -44,6 +44,14 @@ function onLocalFlipXChanged(val) {
     }
 }
 
+export function getAllVisibleThumbnails() {
+    let thumbs = [];
+    if (localVideoThumbnail && localVideoThumbnail.isVisible()) {
+        thumbs.push(localVideoThumbnail)
+    }
+    return [...thumbs,...Object.values(remoteVideos)];
+}
+
 /**
  * Returns an array of all thumbnails in the filmstrip.
  *
@@ -73,7 +81,7 @@ const VideoLayout = {
         // Sally - store emmiter on init
         this.eventEmitter = emitter
 
-        //Sally - do not add local video on init
+        //Sally - add local video but set it invisible unless trainer
         eventEmitter = emitter;
 
         localVideoThumbnail = new LocalVideo(
@@ -85,7 +93,7 @@ const VideoLayout = {
             // Sally - make video invisibale in init except for the trainer
             if (lp.name !== 'trainer') {
                 this.setLocalVideoVisible(false)
-            }
+            } else {this.setLocalVideoVisible(true)}
 
         this.registerListeners();
     },
@@ -166,7 +174,9 @@ const VideoLayout = {
      * @param {boolean} true to make the local video visible, false - otherwise
      */
     setLocalVideoVisible(visible) {
-        localVideoThumbnail.setVisible(visible);
+        if (localVideoThumbnail) {
+            localVideoThumbnail.setVisible(visible);
+        }
     },
 
     onRemoteStreamAdded(stream) {
