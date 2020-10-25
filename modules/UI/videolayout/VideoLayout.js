@@ -22,6 +22,7 @@ import { VIDEO_CONTAINER_TYPE } from './VideoContainer';
 const logger = Logger.getLogger(__filename);
 
 const remoteVideos = {};
+const remoteStreams={};
 let localVideoThumbnail = null;
 
 let eventEmitter = null;
@@ -180,7 +181,17 @@ const VideoLayout = {
     },
 
     onRemoteStreamAdded(stream) {
+        console.log('on remote stream added')
+        console.log(stream)
         const id = stream.getParticipantId();
+
+        // keep streams (id: { type: stream}})
+        let rs = remoteStreams[id] || {};
+        rs[stream.getType()] = stream
+        remoteStreams[id]=rs
+        
+        console.log("remote streams")
+        console.log(remoteStreams);
         const remoteVideo = remoteVideos[id];
 
         logger.debug(`Received a new ${stream.getType()} stream for ${id}`);
@@ -200,9 +211,11 @@ const VideoLayout = {
             this.onVideoMute(id, stream.isMuted());
             remoteVideo.setScreenSharing(stream.videoType === 'desktop');
         }
+        remoteVideo.updateView();
     },
 
     onRemoteStreamRemoved(stream) {
+        console.log('stream removed')
         const id = stream.getParticipantId();
         const remoteVideo = remoteVideos[id];
 
@@ -309,6 +322,7 @@ const VideoLayout = {
 
         // Sally - if remote video already exists, don't add it
         if (remoteVideos[participant.id]) {
+            console.log('already exists')
             return;
         }
         if (!participant || participant.local) {
@@ -324,8 +338,11 @@ const VideoLayout = {
             return;
         }
 
+         console.log('aaaaaaaaaaa')
+
         const id = participant.id;
         const jitsiParticipant = APP.conference.getParticipantById(id);
+        console.log(jitsiParticipant)
         const remoteVideo = new RemoteVideo(jitsiParticipant, VideoLayout);
 
         this._setRemoteControlProperties(jitsiParticipant, remoteVideo);
@@ -333,7 +350,9 @@ const VideoLayout = {
 
         this.updateMutedForNoTracks(id, 'audio');
         this.updateMutedForNoTracks(id, 'video');
+
     },
+
 
     /**
      * Adds remote video container for the given id and <tt>SmallVideo</tt>.
@@ -346,6 +365,8 @@ const VideoLayout = {
         remoteVideos[id] = remoteVideo;
 
         // Initialize the view
+        
+        this.addSavedRemoteStreams(id)
         remoteVideo.updateView();
     },
 
@@ -356,6 +377,14 @@ const VideoLayout = {
             $(videoElement).show();
         }
         this._updateLargeVideoIfDisplayed(resourceJid, true);
+    },
+
+    addSavedRemoteStreams(id) {
+        //add all saved remote streams to remotevideo
+        let rs = remoteStreams[id]
+        for (const streamType in rs) {
+            this.onRemoteStreamAdded(rs[streamType]);
+        }
     },
 
     /**

@@ -127,8 +127,14 @@ export function calculateThumbnailSizeForTileView({
     const aspectRatioHeight = initialWidth / TILE_ASPECT_RATIO;
 
     // Sally - get the max height -- not min...fill the screen where possible
-    const height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
-    const width = Math.floor(TILE_ASPECT_RATIO * height);
+    let height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
+    let width = Math.floor(TILE_ASPECT_RATIO * height);
+
+    //test bad aspect ratio
+    if (thumbs.length === 1) {
+        let height=viewHeight
+        let width=viewWidth
+    }
 
     return {
         height,
