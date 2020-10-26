@@ -353,7 +353,6 @@ const VideoLayout = {
 
     },
 
-
     /**
      * Adds remote video container for the given id and <tt>SmallVideo</tt>.
      *
@@ -366,7 +365,8 @@ const VideoLayout = {
 
         // Initialize the view
         // Sally - ensure video and audio streams are added for subsequent adds
-        this.addSavedRemoteStreams(id)
+        this.addSavedRemoteStreams(id);
+        this.setRemoteVideoOrder(id);
         remoteVideo.updateView();
     },
 
@@ -433,11 +433,35 @@ const VideoLayout = {
             const remoteVideo = remoteVideos[id];
 
             if (remoteVideo) {
-                remoteVideo.updateDisplayName();
+              remoteVideo.updateDisplayName();
+              this.setRemoteVideoOrder(id);
             }
+            
+           
         }
     },
 
+    // Sally - Add function to set the order of a remote video (flex order css)
+    // Sally - this makes sure trainer and active remote video will always be in the correct order, and correct side of localvideo
+
+    setRemoteVideoOrder(id) {
+      const remoteVideo = remoteVideos[id];
+      if (!remoteVideo) {
+        return;
+      }
+      const state = APP.store.getState();
+      const participant = getParticipantById(state, id);
+      switch (participant.name) {
+      case 'active': 
+        remoteVideo.updateOrderCss(2);
+        break;
+      case 'trainer': 
+        remoteVideo.updateOrderCss(-1);
+        break;
+      default:
+        remoteVideo.updateOrderCss(0);
+      }
+    },
     /**
      * On dominant speaker changed event.
      *
