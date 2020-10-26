@@ -116,7 +116,6 @@ export function calculateThumbnailSizeForTileView({
     const viewHeight = clientHeight - topBottomPadding - verticalMargins;
 
     let initialWidth = viewWidth / columns;
-    console.log('Recalc')
 
     // Sally  -  how many visible thumbnails.. if only one thumb, use full width!
     const thumbs = getAllVisibleThumbnails();
@@ -124,17 +123,19 @@ export function calculateThumbnailSizeForTileView({
         initialWidth = viewWidth;
     }
 
+    console.log('Recalc debug')
+    console.log(`${clientHeight}-${clientWidth}-${visibleRows}-${columns}-${thumbs.length}`)
     const aspectRatioHeight = initialWidth / TILE_ASPECT_RATIO;
 
     // Sally - get the max height -- not min...fill the screen where possible
-    let height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
-    let width = Math.floor(TILE_ASPECT_RATIO * height);
+    // let height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
+    // let width = Math.floor(TILE_ASPECT_RATIO * height);
 
-    //test bad aspect ratio
-    if (thumbs.length === 1) {
-        let height=viewHeight
-        let width=viewWidth
-    }
+
+    // Sally override, allways full height. width is either full width when only one video, or half (num colums = 2)
+    let height = viewHeight;
+    let width = initialWidth;
+
 
     return {
         height,

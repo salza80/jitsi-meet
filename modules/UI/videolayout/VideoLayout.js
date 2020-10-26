@@ -79,9 +79,6 @@ function getLocalParticipant() {
 const VideoLayout = {
     init(emitter) {
 
-        // Sally - store emmiter on init
-        this.eventEmitter = emitter
-
         //Sally - add local video but set it invisible unless trainer
         eventEmitter = emitter;
 
@@ -91,12 +88,13 @@ const VideoLayout = {
             this._updateLargeVideoIfDisplayed.bind(this));
             let lp = getLocalParticipant()
 
-            // Sally - make video invisibale in init except for the trainer
+            // Sally - make video invisible in init except for the trainer
             if (lp.name !== 'trainer') {
                 this.setLocalVideoVisible(false)
             } else {this.setLocalVideoVisible(true)}
 
         this.registerListeners();
+        this.hideStats();
     },
 
     /**
@@ -120,6 +118,7 @@ const VideoLayout = {
     },
 
     initLargeVideo() {
+        console.log('init large video')
         this._resetLargeVideo();
 
         largeVideo = new LargeVideoManager(eventEmitter);
@@ -350,6 +349,7 @@ const VideoLayout = {
 
         this.updateMutedForNoTracks(id, 'audio');
         this.updateMutedForNoTracks(id, 'video');
+        this.hideStats();
 
     },
 
@@ -365,7 +365,7 @@ const VideoLayout = {
         remoteVideos[id] = remoteVideo;
 
         // Initialize the view
-        
+        // Sally - ensure video and audio streams are added for subsequent adds
         this.addSavedRemoteStreams(id)
         remoteVideo.updateView();
     },
@@ -378,10 +378,9 @@ const VideoLayout = {
         }
         this._updateLargeVideoIfDisplayed(resourceJid, true);
     },
-
+    //Sally  add all saved remote streams to the remotevideo
     addSavedRemoteStreams(id) {
-        //add all saved remote streams to remotevideo
-        let rs = remoteStreams[id]
+        let rs = remoteStreams[id] || [];
         for (const streamType in rs) {
             this.onRemoteStreamAdded(rs[streamType]);
         }
@@ -446,6 +445,8 @@ const VideoLayout = {
      * @returns {void}
      */
     onDominantSpeakerChanged(id) {
+        // Sally - do not show dominant speaker
+        return;
         getAllThumbnails().forEach(thumbnail =>
             thumbnail.showDominantSpeakerIndicator(id === thumbnail.getId()));
     },
