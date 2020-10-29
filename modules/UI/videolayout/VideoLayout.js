@@ -451,16 +451,11 @@ const VideoLayout = {
       }
       const state = APP.store.getState();
       const participant = getParticipantById(state, id);
-      switch (participant.name) {
-      case 'active': 
-        remoteVideo.updateOrderCss(2);
-        break;
-      case 'trainer': 
+
+      if(!participant.name) { return };
+      if (participant.name === 'trainer') {
         remoteVideo.updateOrderCss(-1);
-        break;
-      default:
-        remoteVideo.updateOrderCss(0);
-      }
+      } else { remoteVideo.updateOrderCss(2); }
     },
     /**
      * On dominant speaker changed event.

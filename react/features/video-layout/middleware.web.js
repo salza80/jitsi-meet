@@ -75,25 +75,27 @@ MiddlewareRegistry.register(store => next => action => {
         // explicit in order to minimize changes to other code.
         console.log('participant updated')
         console.log(action.participant)
-        // Sally - add participant if name = active
-        //       - remove participant if name is not active, and not the trainer
+        // Sally - remove participant if name = inactive or blank
+        //       - add participant if name is not inactive or blank
         //       - if local - set video visible if active or trainer, and invisable if inactive.
 
         let p = getParticipantById(store.getState(), action.participant.id);
         console.log(p)
-        if (p.local) {
-            if (p.name === 'active' || p.name === 'trainer') {
-                VideoLayout.setLocalVideoVisible(true);
+        if (p) {
+            if (p.local) {
+                if (p.name === undefined || p.name === 'inactive' || p.name === '') {
+                    VideoLayout.setLocalVideoVisible(false);
+                } else {
+                    VideoLayout.setLocalVideoVisible(true);
+                }
             } else {
-                VideoLayout.setLocalVideoVisible(false);
-            }
-        } else {
-            if (p.name === 'active' || p.name === 'trainer') {
-                console.log('add active participant')
-                VideoLayout.addRemoteParticipantContainer(p);
-            } else if (p.name !== 'trainer') {
-                 console.log('remove inactive participant')
-                VideoLayout.removeParticipantContainer(action.participant.id);
+                if (p.name === 'inactive' || p.name === '') {
+                    console.log('remove inactive participant')
+                    VideoLayout.removeParticipantContainer(action.participant.id);
+                } else {
+                    console.log('add active participant')
+                    VideoLayout.addRemoteParticipantContainer(p);
+                }
             }
         }
 
