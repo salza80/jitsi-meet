@@ -177,6 +177,12 @@ export default class LocalVideo extends SmallVideo {
             this.$container.show();
         } else {
             this.$container.hide();
+            if (!APP.conference.isLocalAudioMuted()) {
+                APP.conference.toggleAudioMuted(false /* no UI */);
+            }
+            if (!APP.conference.isLocalVideoMuted()) {
+                APP.conference.toggleVideoMuted(false /* no UI */);
+            }
         }
     }
 
