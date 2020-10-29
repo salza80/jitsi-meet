@@ -1432,10 +1432,11 @@ function _mapStateToProps(state) {
     if (enableFeaturesBasedOnToken) {
         // we enable desktop sharing if any participant already have this
         // feature enabled
+       
+
         desktopSharingEnabled = getParticipants(state)
             .find(({ features = {} }) =>
                 String(features['screen-sharing']) === 'true') !== undefined;
-
         // we want to show button and tooltip
         if (state['features/base/jwt'].isGuest) {
             desktopSharingDisabledTooltipKey
@@ -1445,6 +1446,11 @@ function _mapStateToProps(state) {
                 = 'dialog.shareYourScreenDisabled';
         }
     }
+
+     // Sally - And ONLY enable desktop sharing If the current participant is the trainer
+        if (localParticipant.name !== 'trainer') {
+            desktopSharingEnabled = false;
+        }
 
     // NB: We compute the buttons again here because if URL parameters were used to
     // override them we'd miss it.

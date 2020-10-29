@@ -52,7 +52,7 @@ var interfaceConfig = {
 
     DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
 
-    DISABLE_FOCUS_INDICATOR: false,
+    DISABLE_FOCUS_INDICATOR: true,
 
     /**
      * If true, notifications regarding joining/leaving are no longer displayed.
@@ -199,7 +199,7 @@ var interfaceConfig = {
     // ],
 
     TOOLBAR_BUTTONS: [
-        'microphone', 'camera', 'desktop', 'sharedvideo', 'settings', 'videoquality', 'mute-everyone'
+        'microphone', 'camera', 'desktop', 'settings', 'videoquality', 'mute-everyone'
     ],
 
     TOOLBAR_TIMEOUT: 4000,
