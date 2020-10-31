@@ -14,6 +14,7 @@ import { i18next } from '../../../react/features/base/i18n';
 import {
     getParticipantCount,
     getPinnedParticipant,
+    getParticipantById,
     pinParticipant
 } from '../../../react/features/base/participants';
 import { ConnectionIndicator } from '../../../react/features/connection-indicator';
@@ -71,6 +72,15 @@ const DISPLAY_VIDEO_WITH_NAME = 3;
  * @constant
  */
 const DISPLAY_AVATAR_WITH_NAME = 4;
+
+// Sally - Display mode for Audi custom 'active user'
+/**
+ * Display mode when username is > '' And user name is not 'trainer' and video is not being displayed
+ * We show an avatar image, and the display name.
+ * @type {number}
+ * @constant
+ */
+const DISPLAY_AUDI_AVATAR_WITH_NAME = 5;
 
 
 /**
@@ -400,6 +410,10 @@ export default class SmallVideo {
                 </Provider>,
                 displayNameContainer);
         }
+        // Sally - update view after name change to set correct styling for active / trainer user.
+        this.updateView();
+
+
     }
 
     /**
@@ -480,6 +494,14 @@ export default class SmallVideo {
         }
 
         // check hovering and change state to avatar with name
+
+        // Sally check if username is >'' and NOT 'inactive' or 'trainer'
+        const state = APP.store.getState();
+        const participant = getParticipantById(state, this.id);
+        if (participant && participant.name > '' && participant.name !== 'trainer' && participant.name !== 'inactive') {
+            return DISPLAY_AUDI_AVATAR_WITH_NAME;
+        }
+        // end sally
         return input.isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
     }
 
@@ -535,6 +557,10 @@ export default class SmallVideo {
         case DISPLAY_AVATAR_WITH_NAME:
             displayModeString = 'avatar-with-name';
             this.$container.addClass('display-avatar-with-name');
+            break;
+        case DISPLAY_AUDI_AVATAR_WITH_NAME:
+            displayModeString = 'audi-avatar-with-name';
+            this.$container.addClass('display-audi-avatar-with-name');
             break;
         case DISPLAY_BLACKNESS_WITH_NAME:
             displayModeString = 'blackness-with-name';

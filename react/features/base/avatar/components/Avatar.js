@@ -5,6 +5,7 @@ import React, { PureComponent } from 'react';
 import { getParticipantById } from '../../participants';
 import { connect } from '../../redux';
 import { getAvatarColor, getInitials } from '../functions';
+import { IconCheck } from '../../icons';
 
 import { StatelessAvatar } from '.';
 
@@ -121,6 +122,7 @@ class Avatar<P: Props> extends PureComponent<P, State> {
         const {
             _initialsBase,
             _loadableAvatarUrl,
+            _useDefaultIcon,
             className,
             colorBase,
             id,
@@ -129,6 +131,8 @@ class Avatar<P: Props> extends PureComponent<P, State> {
             testId,
             url
         } = this.props;
+        console.log('boom')
+        console.log(url)
         const { avatarFailed } = this.state;
 
         const avatarProps = {
@@ -153,11 +157,14 @@ class Avatar<P: Props> extends PureComponent<P, State> {
             avatarProps.url = effectiveURL;
         }
 
-        const initials = getInitials(_initialsBase);
+        if (!_useDefaultIcon) {
 
-        if (initials) {
-            avatarProps.color = getAvatarColor(colorBase || _initialsBase);
-            avatarProps.initials = initials;
+            const initials = getInitials(_initialsBase);
+
+            if (initials) {
+                avatarProps.color = getAvatarColor(colorBase || _initialsBase);
+                avatarProps.initials = initials;
+            }
         }
 
         return (
@@ -192,9 +199,14 @@ export function _mapStateToProps(state: Object, ownProps: Props) {
     const _participant: ?Object = participantId && getParticipantById(state, participantId);
     const _initialsBase = _participant?.name ?? displayName;
 
+    // Sally -- if username > '' and not trainer or 'inactive'
+    // load the audi user icon (replaced from default)
+    const _useDefaultIcon = _participant && _participant.name > '' && _participant.name !== 'trainer' && _participant.name !== 'inactive' ? true : false
+
     return {
         _initialsBase,
         _loadableAvatarUrl: _participant?.loadableAvatarUrl,
+        _useDefaultIcon,
         colorBase: !colorBase && _participant ? _participant.id : colorBase
     };
 }

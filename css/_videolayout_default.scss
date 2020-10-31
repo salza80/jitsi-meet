@@ -623,6 +623,36 @@
     }
 }
 
+.display-audi-avatar-with-name {
+    .videocontainer__background {
+        background-color: #fff;
+    }
+    .avatar-container {
+        visibility: visible;
+        .avatar {
+            background-color: #fff;
+        }
+    }
+
+    .displayNameContainer {
+        visibility: visible;
+        .displayname {
+            top: 90%;
+            color: rgba(0,0,0,6);
+            font-size: 14px;
+            font-weight: 900;
+        }
+    }
+
+    .videocontainer__hoverOverlay {
+        visibility: hidden;
+    }
+
+    video {
+        visibility: hidden;
+    }
+}
+
 .display-name-on-black {
     .avatar-container {
         visibility: hidden;
