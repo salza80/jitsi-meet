@@ -118,7 +118,6 @@ const VideoLayout = {
     },
 
     initLargeVideo() {
-        console.log('init large video')
         this._resetLargeVideo();
 
         largeVideo = new LargeVideoManager(eventEmitter);
@@ -180,17 +179,13 @@ const VideoLayout = {
     },
 
     onRemoteStreamAdded(stream) {
-        console.log('on remote stream added')
-        console.log(stream)
         const id = stream.getParticipantId();
 
         // keep streams (id: { type: stream}})
         let rs = remoteStreams[id] || {};
         rs[stream.getType()] = stream
         remoteStreams[id]=rs
-        
-        console.log("remote streams")
-        console.log(remoteStreams);
+
         const remoteVideo = remoteVideos[id];
 
         logger.debug(`Received a new ${stream.getType()} stream for ${id}`);
@@ -214,7 +209,6 @@ const VideoLayout = {
     },
 
     onRemoteStreamRemoved(stream) {
-        console.log('stream removed')
         const id = stream.getParticipantId();
         const remoteVideo = remoteVideos[id];
 
@@ -315,13 +309,9 @@ const VideoLayout = {
      * @returns {void}
      */
     addRemoteParticipantContainer(participant) {
-        console.log("ADDING REMOTE PARTICIPANT")
-        console.log(participant)
-        console.log(participant.name)
 
         // Sally - if remote video already exists, don't add it
         if (remoteVideos[participant.id]) {
-            console.log('already exists')
             return;
         }
         if (!participant || participant.local) {
@@ -337,11 +327,10 @@ const VideoLayout = {
             return;
         }
 
-         console.log('aaaaaaaaaaa')
+
 
         const id = participant.id;
         const jitsiParticipant = APP.conference.getParticipantById(id);
-        console.log(jitsiParticipant)
         const remoteVideo = new RemoteVideo(jitsiParticipant, VideoLayout);
 
         this._setRemoteControlProperties(jitsiParticipant, remoteVideo);

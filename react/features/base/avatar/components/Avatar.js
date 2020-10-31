@@ -5,7 +5,6 @@ import React, { PureComponent } from 'react';
 import { getParticipantById } from '../../participants';
 import { connect } from '../../redux';
 import { getAvatarColor, getInitials } from '../functions';
-import { IconCheck } from '../../icons';
 
 import { StatelessAvatar } from '.';
 
@@ -131,8 +130,6 @@ class Avatar<P: Props> extends PureComponent<P, State> {
             testId,
             url
         } = this.props;
-        console.log('boom')
-        console.log(url)
         const { avatarFailed } = this.state;
 
         const avatarProps = {

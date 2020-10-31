@@ -155,7 +155,8 @@ var interfaceConfig = {
     RECENT_LIST_ENABLED: false,
     REMOTE_THUMBNAIL_RATIO: 1, // 1:1
 
-    SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],
+    // profle removes the option for hte user to change thier user name..
+    SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'calendar' ],
     SHOW_BRAND_WATERMARK: false,
 
     /**
