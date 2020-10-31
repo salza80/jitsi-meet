@@ -262,9 +262,10 @@ function _mapStateToProps(state) {
     const participant = getLocalParticipant(state);
     const { remoteVideoMenu = {}, disableRemoteMute } = state['features/base/config'];
     const { disableKick } = remoteVideoMenu;
-
+    // Sally --  set isModerator always to false to remove moderator functions
     return {
-        _isModerator: Boolean(participant?.role === PARTICIPANT_ROLE.MODERATOR),
+        // _isModerator: Boolean(participant?.role === PARTICIPANT_ROLE.MODERATOR),
+        _isModerator: Boolean(false),
         _disableKick: Boolean(disableKick),
         _disableRemoteMute: Boolean(disableRemoteMute)
     };

@@ -199,7 +199,7 @@ var interfaceConfig = {
     // ],
 
     TOOLBAR_BUTTONS: [
-        'microphone', 'camera', 'desktop', 'settings', 'videoquality', 'mute-everyone'
+        'microphone', 'camera', 'desktop', 'settings', 'videoquality'
     ],
 
     TOOLBAR_TIMEOUT: 4000,
