@@ -95,6 +95,7 @@ export function calculateThumbnailSizeForTileView({
     clientWidth,
     clientHeight
 }: Object) {
+
     // The distance from the top and bottom of the screen, as set by CSS, to
     // avoid overlapping UI elements.
     
@@ -110,6 +111,7 @@ export function calculateThumbnailSizeForTileView({
 
     const verticalMargins = visibleRows * 0;
     const viewWidth = clientWidth - sideMargins;
+
     const viewHeight = clientHeight - topBottomPadding - verticalMargins;
 
     let initialWidth = viewWidth / columns;
@@ -122,6 +124,7 @@ export function calculateThumbnailSizeForTileView({
 
     console.log('Recalc debug')
     console.log(`${clientHeight}-${clientWidth}-${visibleRows}-${columns}-${thumbs.length}`)
+
     const aspectRatioHeight = initialWidth / TILE_ASPECT_RATIO;
 
     // Sally - get the max height -- not min...fill the screen where possible

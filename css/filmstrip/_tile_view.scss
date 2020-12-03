@@ -97,11 +97,15 @@
             border: 0;
             box-sizing: border-box;
             display: block;
+<<<<<<< HEAD
             // Sally - Remove margin on video cotainer
             margin: 0px !important;
         }
         .videocontainer.hidden {
             display: none !important;   
+=======
+            margin: 2px;
+>>>>>>> feat(tile-view) optimize for less margins
         }
 
         video {
