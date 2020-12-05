@@ -17,7 +17,6 @@ import {
     getParticipantById,
     getParticipantCount,
     getPinnedParticipant,
-    getParticipantById,
     pinParticipant
 } from '../../../react/features/base/participants';
 import {

@@ -169,14 +169,17 @@ class Avatar<P: Props> extends PureComponent<P, State> {
             avatarProps.url = effectiveURL;
         }
 
+        const initials = getInitials(_initialsBase);
+
         if (!_useDefaultIcon) {
 
-        if (initials) {
-            if (dynamicColor) {
-                avatarProps.color = getAvatarColor(colorBase || _initialsBase);
-            }
+            if (initials) {
+                if (dynamicColor) {
+                    avatarProps.color = getAvatarColor(colorBase || _initialsBase);
+                }
 
-            avatarProps.initials = initials;
+                avatarProps.initials = initials;
+            }
         }
 
         return (
