@@ -1,4 +1,4 @@
-/* global APP, $  */
+/* global APP  */
 
 import Logger from 'jitsi-meet-logger';
 
@@ -358,14 +358,15 @@ const VideoLayout = {
         remoteVideo.updateView();
     },
 
-    // FIXME: what does this do???
-    remoteVideoActive(videoElement, resourceJid) {
-        logger.info(`${resourceJid} video is now active`, videoElement);
-        if (videoElement) {
-            $(videoElement).show();
-        }
-        this._updateLargeVideoIfDisplayed(resourceJid, true);
-    },
+    // Sally -- possibly not required. removed on rebase
+    // remoteVideoActive(videoElement, resourceJid) {
+    //     logger.info(`${resourceJid} video is now active`, videoElement);
+    //     if (videoElement) {
+    //         $(videoElement).show();
+    //     }
+    //     this._updateLargeVideoIfDisplayed(resourceJid, true);
+    // },
+
     //Sally  add all saved remote streams to the remotevideo
     addSavedRemoteStreams(id) {
         let rs = remoteStreams[id] || [];
