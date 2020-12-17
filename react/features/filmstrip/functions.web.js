@@ -11,6 +11,10 @@ import { TILE_ASPECT_RATIO } from './constants';
 
 declare var interfaceConfig: Object;
 
+// Minimum space to keep between the sides of the tiles and the sides
+// of the window.
+const TILE_VIEW_SIDE_MARGINS = 20;
+
 /**
  * Returns true if the filmstrip on mobile is visible, false otherwise.
  *
@@ -124,6 +128,10 @@ export function calculateThumbnailSizeForTileView({
 
     console.log('Recalc debug')
     console.log(`${clientHeight}-${clientWidth}-${visibleRows}-${columns}-${thumbs.length}`)
+
+    // const viewWidth = clientWidth - TILE_VIEW_SIDE_MARGINS;
+    // const viewHeight = clientHeight - TILE_VIEW_SIDE_MARGINS;
+    // const initialWidth = viewWidth / columns;
 
     const aspectRatioHeight = initialWidth / TILE_ASPECT_RATIO;
 
