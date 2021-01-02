@@ -168,7 +168,7 @@ var interfaceConfig = {
     REMOTE_THUMBNAIL_RATIO: 1, // 1:1
 
     // profle removes the option for hte user to change thier user name..
-    SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'calendar' ],
+    SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'calendar', 'profile' ],
     SHOW_BRAND_WATERMARK: false,
 
     /**

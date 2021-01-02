@@ -73,17 +73,16 @@ MiddlewareRegistry.register(store => next => action => {
         // Look for actions that triggered a change to connectionStatus. This is
         // done instead of changing the connection status change action to be
         // explicit in order to minimize changes to other code.
-        console.log('participant updated')
-        console.log(action.participant)
+        // console.log('participant updated')
+        // console.log(action.participant)
         // Sally - remove participant if name = inactive or blank
         //       - add participant if name is not inactive or blank
         //       - if local - set video visible if active or trainer, and invisable if inactive.
 
         let p = getParticipantById(store.getState(), action.participant.id);
-        console.log(p)
         if (p) {
             if (p.local) {
-                if (p.name === undefined || p.name === 'inactive' || p.name === '') {
+                if (p.name === undefined || p.name === 'inactive' || p.name === 'audioonly' || p.name === '') {
                     VideoLayout.setLocalVideoVisible(false);
                 } else {
                     VideoLayout.setLocalVideoVisible(true);

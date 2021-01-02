@@ -96,9 +96,13 @@
         .videocontainer {
             border: 0;
             box-sizing: border-box;
-            display: block;
+            // sally - add important to fix bug
+            display: block !important;
             // Sally - Remove margin on video cotainer
             margin: 0px !important;
+        }
+        .videocontainer.hidden {
+            display: none !important;   
         }
 
         video {
