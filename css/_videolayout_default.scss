@@ -726,6 +726,29 @@
     }
 }
 
+.display-audio-only {
+    visibility: hidden;
+    display: none !important;
+    .videocontainer__background {
+        background-color: #fff;
+    }
+    .avatar-container {
+        visibility: hidden;
+    }
+
+    .displayNameContainer {
+        visibility: hidden;
+    }
+
+    .videocontainer__hoverOverlay {
+        visibility: hidden;
+    }
+
+    video {
+        visibility: hidden;
+    }
+}
+
 .presence-label {
     color: $participantNameColor;
     font-size: 12px;

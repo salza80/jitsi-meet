@@ -90,6 +90,15 @@ const DISPLAY_AVATAR_WITH_NAME = 4;
  */
 const DISPLAY_AUDI_AVATAR_WITH_NAME = 5;
 
+// Sally - Display Audio Only for users with name 'audioonly'
+/**
+ * Display mode when username is = 'audioonly'.
+ * We do not show the container.
+ * @type {number}
+ * @constant
+ */
+const DISPLAY_AUDIO_ONLY = 6;
+
 
 /**
  *
@@ -426,6 +435,14 @@ export default class SmallVideo {
      * or <tt>DISPLAY_BLACKNESS_WITH_NAME</tt>.
      */
     selectDisplayMode(input) {
+        // Sally get Participant from state
+        const state = APP.store.getState();
+        const participant = getParticipantById(state, this.id);
+
+        // Sally If user is  audioonly display audio only
+        if (participant && participant.name === 'audioonly') {
+            return DISPLAY_AUDIO_ONLY;
+        }
         if (!input.tileViewActive && input.isScreenSharing) {
             return input.isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
         } else if (input.isCurrentlyOnLargeVideo && !input.tileViewActive) {
@@ -439,8 +456,6 @@ export default class SmallVideo {
         // check hovering and change state to avatar with name
 
         // Sally check if username is >'' and NOT 'inactive' or 'trainer'
-        const state = APP.store.getState();
-        const participant = getParticipantById(state, this.id);
         if (participant && participant.name > '' && participant.name !== 'trainer' && participant.name !== 'inactive') {
             return DISPLAY_AUDI_AVATAR_WITH_NAME;
         }
@@ -527,6 +542,10 @@ export default class SmallVideo {
         case DISPLAY_VIDEO_WITH_NAME:
             displayModeString = 'video-with-name';
             this.$container.addClass('display-name-on-video');
+            break;
+        case DISPLAY_AUDIO_ONLY:
+            displayModeString = 'audio-only';
+            this.$container.addClass('display-audio-only');
             break;
         case DISPLAY_AVATAR:
         default:

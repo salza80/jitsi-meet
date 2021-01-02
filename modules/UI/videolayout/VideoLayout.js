@@ -50,7 +50,12 @@ export function getAllVisibleThumbnails() {
     if (localVideoThumbnail && localVideoThumbnail.isVisible()) {
         thumbs.push(localVideoThumbnail)
     }
-    return [...thumbs,...Object.values(remoteVideos)];
+    for (const key in remoteVideos) {
+      if (remoteVideos[key].isVisible()) {
+        thumbs.push(remoteVideos[key])
+      }
+    }
+    return [...thumbs];
 }
 
 /**
