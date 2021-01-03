@@ -13,6 +13,7 @@ import { AbstractAudioMuteButton } from '../../base/toolbox/components';
 import type { AbstractButtonProps } from '../../base/toolbox/components';
 import { isLocalTrackMuted } from '../../base/tracks';
 import { muteLocal } from '../../remote-video-menu/actions';
+import { isAudioSettingsButtonDisabled } from '../functions';
 
 declare var APP: Object;
 
@@ -150,7 +151,7 @@ class AudioMuteButton extends AbstractAudioMuteButton<Props, *> {
  */
 function _mapStateToProps(state): Object {
     const _audioMuted = isLocalTrackMuted(state['features/base/tracks'], MEDIA_TYPE.AUDIO);
-    const _disabled = state['features/base/config'].startSilent;
+    const _disabled = isAudioSettingsButtonDisabled(state);
 
     return {
         _audioMuted,
