@@ -1442,10 +1442,10 @@ function _mapStateToProps(state) {
         desktopSharingDisabledTooltipKey = 'dialog.shareYourScreenDisabled';
     }
 
-     // Sally - And ONLY enable desktop sharing If the current participant is the trainer
-        if (localParticipant.name !== 'trainer') {
-            desktopSharingEnabled = false;
-        }
+     // Sally - And ONLY enable desktop sharing If the current participant is the trainer Or active uesr (not audiononly, blank or inactive)
+    if (localParticipant.name === '' || localParticipant.name === 'inactive' || localParticipant.name ==='audioonly') {
+        desktopSharingEnabled = false
+    }
 
     // NB: We compute the buttons again here because if URL parameters were used to
     // override them we'd miss it.
