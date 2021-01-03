@@ -3,6 +3,10 @@
 import { hasAvailableDevices } from '../base/devices';
 import { isMobileBrowser } from '../base/environment/utils';
 
+import {
+    getLocalParticipant
+} from '../base/participants';
+
 declare var interfaceConfig: Object;
 
 /**
@@ -63,6 +67,12 @@ export function isToolboxVisible(state: Object) {
  * @returns {boolean}
  */
 export function isAudioSettingsButtonDisabled(state: Object) {
+    // Sally - disable video button for 'inactive' and 'audioonly' participants
+    const localParticipant = getLocalParticipant(state);
+
+    if (localParticipant.name === 'inactive' || localParticipant.name === '' || localParticipant.name === 'audioonly') {
+        return true;
+    }
     return (!hasAvailableDevices(state, 'audioInput')
           && !hasAvailableDevices(state, 'audioOutput'))
           || state['features/base/config'].startSilent;
@@ -75,6 +85,12 @@ export function isAudioSettingsButtonDisabled(state: Object) {
  * @returns {boolean}
  */
 export function isVideoSettingsButtonDisabled(state: Object) {
+    // Sally - disable video button for 'inactive' and 'audioonly' participants
+    const localParticipant = getLocalParticipant(state);
+    if (localParticipant.name === 'inactive' || localParticipant.name === '' || localParticipant.name === 'audioonly') {
+        return true;
+    }
+
     return !hasAvailableDevices(state, 'videoInput');
 }
 
@@ -85,5 +101,11 @@ export function isVideoSettingsButtonDisabled(state: Object) {
  * @returns {boolean}
  */
 export function isVideoMuteButtonDisabled(state: Object) {
+    // Sally - disable video button for 'inactive' and 'audioonly' participants
+    const localParticipant = getLocalParticipant(state);
+
+    if (localParticipant.name === 'inactive' || localParticipant.name === '' || localParticipant.name === 'audioonly') {
+        return true;
+    }
     return !hasAvailableDevices(state, 'videoInput');
 }
