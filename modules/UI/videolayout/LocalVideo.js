@@ -176,6 +176,8 @@ export default class LocalVideo extends SmallVideo {
         // the above css class didn't succeed in overwriting the style.
         if (visible) {
             this.$container.show();
+            // sally - fix bug when going from audioonly to visible... incorrect display style added
+            this.$container.css("display", "");
         } else {
             this.$container.hide();
             if (!APP.conference.isLocalAudioMuted()) {
