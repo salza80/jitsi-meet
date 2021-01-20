@@ -1439,7 +1439,7 @@ function _mapStateToProps(state) {
         desktopSharingDisabledTooltipKey = 'dialog.shareYourScreenDisabled';
     }
 
-     // Sally - And ONLY enable desktop sharing If the current participant is the trainer Or active uesr (not audiononly, blank or inactive)
+     // Sally - And ONLY enable desktop sharing If the current participant is the trainer Or active user (not audiononly, blank or inactive)
     if (localParticipant.name === '' || localParticipant.name === 'inactive' || localParticipant.name ==='audioonly') {
         desktopSharingEnabled = false
     }
@@ -1448,6 +1448,14 @@ function _mapStateToProps(state) {
     // override them we'd miss it.
     const buttons = new Set(interfaceConfig.TOOLBAR_BUTTONS);
 
+    // Sally - move this out of return statement to here
+    let finalButtons = equals(visibleButtons, buttons) ? visibleButtons : buttons
+    // Sally - add additional logic for showing or hiding microphone and vidoe buttons based on user
+    // Sally - Do not show microphone if the user is '', inactive or audioonly. 
+    if (localParticipant.name === '' || localParticipant.name === 'inactive' || localParticipant.name ==='audioonly') {
+        finalButtons.delete('camera')
+        finalButtons.delete('microphone')
+    }
     return {
         _chatOpen: state['features/chat'].isOpen,
         _conference: conference,
@@ -1469,7 +1477,7 @@ function _mapStateToProps(state) {
             || sharedVideoStatus === 'start'
             || sharedVideoStatus === 'pause',
         _visible: isToolboxVisible(state),
-        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons
+        _visibleButtons: finalButtons
     };
 }
 
