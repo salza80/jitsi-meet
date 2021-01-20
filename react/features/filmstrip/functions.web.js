@@ -100,7 +100,7 @@ export function calculateThumbnailSizeForTileView({
     
     // Sally - reduce padding
     // const topBottomPadding = 200;
-    const topBottomPadding = 40;
+    const topBottomPadding = 70;
 
     // Minimum space to keep between the sides of the tiles and the sides
     // of the window.
