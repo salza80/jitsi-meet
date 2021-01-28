@@ -283,7 +283,6 @@ function _mapStateToProps(state, ownProps) {
     const localParticipant = getLocalParticipant(state);
     const { remoteVideoMenu = {}, disableRemoteMute } = state['features/base/config'];
     const { disableKick } = remoteVideoMenu;
-<<<<<<< HEAD
     let _remoteControlState = null;
     const participant = getParticipantById(state, participantID);
     const _isRemoteControlSessionActive = participant?.remoteControlSessionStatus ?? false;
@@ -317,9 +316,7 @@ function _mapStateToProps(state, ownProps) {
         _menuPosition = 'top center';
     }
 
-=======
     // Sally --  set isModerator always to false to remove moderator functions
->>>>>>> add jitsi toolbar changes
     return {
         _isAudioMuted: isRemoteTrackMuted(tracks, MEDIA_TYPE.AUDIO, participantID) || false,
         // _isModerator: Boolean(participant?.role === PARTICIPANT_ROLE.MODERATOR),
