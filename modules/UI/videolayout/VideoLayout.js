@@ -152,12 +152,11 @@ const VideoLayout = {
 
     changeLocalVideo(stream) {
         const localId = getLocalParticipant().id;
-
+        localVideoThumbnail.changeVideo(stream);
         this.onVideoTypeChanged(localId, stream.videoType);
 
-        localVideoThumbnail.changeVideo(stream);
-
         this._updateLargeVideoIfDisplayed(localId);
+        localVideoThumbnail.updateView();
     },
 
     /**
@@ -530,16 +529,10 @@ const VideoLayout = {
         const remoteVideo = remoteVideos[id];
 
         if (!remoteVideo) {
-          const localId = getLocalParticipant().id;
-          if (localId === id) {
-            logger.info('Local video type changed: ', id, newVideoType);
-            localVideoThumbnail.setVideoType(newVideoType)
-          }
           return;
         }
 
         logger.info('Peer video type changed: ', id, newVideoType);
-        if (remoteVideo.setVideoType(newVideoType))
         remoteVideo.updateView();
     },
 

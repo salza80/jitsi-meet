@@ -474,12 +474,17 @@ export default class SmallVideo {
         const state = APP.store.getState();
         const participant = getParticipantById(state, this.id);
 
-        if (typeof participant !== 'undefined' && !participant.isFakeParticipant && !participant.local) {
+        if (typeof participant !== 'undefined' && !participant.isFakeParticipant) {
             const tracks = state['features/base/tracks'];
             const track = getTrackByMediaTypeAndParticipant(tracks, MEDIA_TYPE.VIDEO, this.id);
-
+            /**
+             * Sally
+             * get correct screensharing for local participant
+             */
             isScreenSharing = typeof track !== 'undefined' && track.videoType === 'desktop';
-            connectionStatus = participant.connectionStatus;
+            if (!participant.local) {
+              connectionStatus = participant.connectionStatus;
+            }
         }
 
         return {
@@ -505,17 +510,6 @@ export default class SmallVideo {
      */
     _isHovered() {
         return this.videoIsHovered;
-    }
-
-    /** Sally 
-        Add a class to determin if video is in screenshare state or not
-    */
-    setVideoType(type) {
-        if (type === 'desktop')
-          this.$container.addClass('screenshare')
-        else {
-          this.$container.removeClass('screenshare')
-        }
     }
 
     /**
@@ -563,6 +557,14 @@ export default class SmallVideo {
               displayModeString = 'avatar';
               this.$container.addClass('display-avatar-only');
               break;
+        }
+        /** Sally 
+          Add a class to determine if video is in screenshare state or not
+        */
+        if (displayModeInput.isScreenSharing) {
+          this.$container.addClass('screenshare')
+        } else {
+          this.$container.removeClass('screenshare')
         }
 
         if (this.displayMode !== oldDisplayMode) {
