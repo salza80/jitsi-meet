@@ -107,6 +107,12 @@
         video {
             object-fit: cover;
         }
+
+        .screenshare {
+            video {
+                object-fit: contain;
+            }
+        }
     }
 
     .has-overflow#filmstripRemoteVideosContainer {

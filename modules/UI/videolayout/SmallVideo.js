@@ -507,6 +507,17 @@ export default class SmallVideo {
         return this.videoIsHovered;
     }
 
+    /** Sally 
+        Add a class to determin if video is in screenshare state or not
+    */
+    setVideoType(type) {
+        if (type === 'desktop')
+          this.$container.addClass('screenshare')
+        else {
+          this.$container.removeClass('screenshare')
+        }
+    }
+
     /**
      * Updates the css classes of the thumbnail based on the current state.
      */
@@ -523,35 +534,35 @@ export default class SmallVideo {
         this.displayMode = this.selectDisplayMode(displayModeInput);
 
         switch (this.displayMode) {
-        case DISPLAY_AVATAR_WITH_NAME:
-            displayModeString = 'avatar-with-name';
-            this.$container.addClass('display-avatar-with-name');
-            break;
-        case DISPLAY_AUDI_AVATAR_WITH_NAME:
-            displayModeString = 'audi-avatar-with-name';
-            this.$container.addClass('display-audi-avatar-with-name');
-            break;
-        case DISPLAY_BLACKNESS_WITH_NAME:
-            displayModeString = 'blackness-with-name';
-            this.$container.addClass('display-name-on-black');
-            break;
-        case DISPLAY_VIDEO:
-            displayModeString = 'video';
-            this.$container.addClass('display-video');
-            break;
-        case DISPLAY_VIDEO_WITH_NAME:
-            displayModeString = 'video-with-name';
-            this.$container.addClass('display-name-on-video');
-            break;
-        case DISPLAY_AUDIO_ONLY:
-            displayModeString = 'audio-only';
-            this.$container.addClass('display-audio-only');
-            break;
-        case DISPLAY_AVATAR:
-        default:
-            displayModeString = 'avatar';
-            this.$container.addClass('display-avatar-only');
-            break;
+          case DISPLAY_AVATAR_WITH_NAME:
+              displayModeString = 'avatar-with-name';
+              this.$container.addClass('display-avatar-with-name');
+              break;
+          case DISPLAY_AUDI_AVATAR_WITH_NAME:
+              displayModeString = 'audi-avatar-with-name';
+              this.$container.addClass('display-audi-avatar-with-name');
+              break;
+          case DISPLAY_BLACKNESS_WITH_NAME:
+              displayModeString = 'blackness-with-name';
+              this.$container.addClass('display-name-on-black');
+              break;
+          case DISPLAY_VIDEO:
+              displayModeString = 'video';
+              this.$container.addClass('display-video');
+              break;
+          case DISPLAY_VIDEO_WITH_NAME:
+              displayModeString = 'video-with-name';
+              this.$container.addClass('display-name-on-video');
+              break;
+          case DISPLAY_AUDIO_ONLY:
+              displayModeString = 'audio-only';
+              this.$container.addClass('display-audio-only');
+              break;
+          case DISPLAY_AVATAR:
+          default:
+              displayModeString = 'avatar';
+              this.$container.addClass('display-avatar-only');
+              break;
         }
 
         if (this.displayMode !== oldDisplayMode) {

@@ -48,8 +48,8 @@ MiddlewareRegistry.register(store => next => action => {
         break;
 
     case PARTICIPANT_JOINED:
-        console.log("joined")
-        console.log(action.participant)
+        // console.log("joined")
+        // console.log(action.participant)
         // Sally - only add participant if they are the trainer
         if (!action.participant.local && action.participant.name === 'trainer') {
             VideoLayout.addRemoteParticipantContainer(

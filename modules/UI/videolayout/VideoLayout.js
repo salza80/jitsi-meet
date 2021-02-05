@@ -530,10 +530,16 @@ const VideoLayout = {
         const remoteVideo = remoteVideos[id];
 
         if (!remoteVideo) {
-            return;
+          const localId = getLocalParticipant().id;
+          if (localId === id) {
+            logger.info('Local video type changed: ', id, newVideoType);
+            localVideoThumbnail.setVideoType(newVideoType)
+          }
+          return;
         }
 
         logger.info('Peer video type changed: ', id, newVideoType);
+        if (remoteVideo.setVideoType(newVideoType))
         remoteVideo.updateView();
     },
 
