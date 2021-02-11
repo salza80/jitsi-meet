@@ -57,16 +57,17 @@ MiddlewareRegistry.register(store => next => action => {
         }
 
         // Sally - trigger client resize to force resize of tile view
+        VideoLayout.resizeVideoArea();
         store.dispatch(clientResized(innerWidth, innerHeight));
 
-        VideoLayout.resizeVideoArea();
         break;
 
     case PARTICIPANT_LEFT:
         VideoLayout.removeParticipantContainer(action.participant.id);
         // Sally - trigger client resize to force resize of tile view
-        store.dispatch(clientResized(innerWidth, innerHeight));
         VideoLayout.resizeVideoArea();
+        store.dispatch(clientResized(innerWidth, innerHeight));
+        
         break;
 
     case PARTICIPANT_UPDATED: {
@@ -105,8 +106,10 @@ MiddlewareRegistry.register(store => next => action => {
         }
 
         // Sally - trigger client resize to force resize of tile view
-        store.dispatch(clientResized(innerWidth, innerHeight));
+        // Sally - manually trigger display name changed to ensure view class changes before resize calc
+        VideoLayout.onDisplayNameChanged(p.id, p.name);
         VideoLayout.resizeVideoArea();
+        store.dispatch(clientResized(innerWidth, innerHeight));
         break;
     }
 

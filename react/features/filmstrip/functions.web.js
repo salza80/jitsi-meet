@@ -141,6 +141,7 @@ export function calculateThumbnailSizeForTileView({
     let width = initialWidth;
 
 
+
     return {
         height,
         width

@@ -152,8 +152,8 @@ const VideoLayout = {
 
     changeLocalVideo(stream) {
         const localId = getLocalParticipant().id;
-        localVideoThumbnail.changeVideo(stream);
         this.onVideoTypeChanged(localId, stream.videoType);
+        localVideoThumbnail.changeVideo(stream);
 
         this._updateLargeVideoIfDisplayed(localId);
         localVideoThumbnail.updateView();
@@ -402,9 +402,8 @@ const VideoLayout = {
             if (remoteVideo) {
               remoteVideo.updateDisplayName();
               this.setRemoteVideoOrder(id);
+              remoteVideo.updateView();
             }
-            
-           
         }
     },
 
