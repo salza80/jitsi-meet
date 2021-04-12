@@ -57,7 +57,7 @@ var interfaceConfig = {
     /**
      * If true, notifications regarding joining/leaving are no longer displayed.
      */
-    DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
 
     /**
      * If true, presence status: busy, calling, connected etc. is not displayed.
@@ -164,7 +164,7 @@ var interfaceConfig = {
      *
      * @type {boolean}
      */
-    RECENT_LIST_ENABLED: true,
+    RECENT_LIST_ENABLED: false,
     REMOTE_THUMBNAIL_RATIO: 1, // 1:1
 
     SETTINGS_SECTIONS: [ 'devices', 'language', 'moderator', 'profile', 'calendar' ],
@@ -208,6 +208,10 @@ var interfaceConfig = {
         'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
         'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security'
     ],
+
+    // TOOLBAR_BUTTONS: [
+    //     'microphone', 'camera', 'desktop', 'settings', 'videoquality'
+    // ],
 
     TOOLBAR_TIMEOUT: 4000,
 
@@ -283,3 +287,4 @@ var interfaceConfig = {
 };
 
 /* eslint-enable no-unused-vars, no-var, max-len */
+export default interfaceConfig
