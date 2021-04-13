@@ -10,6 +10,14 @@ import { _CONFIG_STORE_PREFIX } from './constants';
 import INTERFACE_CONFIG_WHITELIST from './interfaceConfigWhitelist';
 import logger from './logger';
 
+// Sally - For local testing only  -- REMOVE 
+import interfaceConfigOverride from '../../../../interface_config'
+import configOverride from '../../../../config'
+
+// var configOverride = {
+//     startWithAudioMuted: true,
+//     startWithVideoMuted: true
+// }
 // XXX The function getRoomName is split out of
 // functions.js because it is bundled in both app.bundle and
 // do_external_connect, webpack 1 does not support tree shaking, and we don't
@@ -208,6 +216,14 @@ export function setConfigFromURLParams(
 
         base[last] = params[param];
     }
+
+    // Sally  local testing only...remove later
+
+    var j = {config : configOverride, interfaceConfig: interfaceConfigOverride}
+
+    overrideConfigJSON(config, interfaceConfig, loggingConfig, j);
+
+    // end testing only
 
     overrideConfigJSON(config, interfaceConfig, loggingConfig, json);
 }

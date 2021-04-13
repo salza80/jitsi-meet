@@ -111,7 +111,7 @@ var config = {
 
     // Start calls with audio muted. Unlike the option above, this one is only
     // applied locally. FIXME: having these 2 options is confusing.
-    // startWithAudioMuted: false,
+    startWithAudioMuted: true,
 
     // Enabling it (with #params) will disable local audio output of remote
     // participants and to enable it back a reload is needed.
@@ -162,7 +162,7 @@ var config = {
 
     // Start calls with video muted. Unlike the option above, this one is only
     // applied locally. FIXME: having these 2 options is confusing.
-    // startWithVideoMuted: false,
+    startWithVideoMuted: true,
 
     // If set to true, prefer to use the H.264 video codec (if supported).
     // Note that it's not recommended to do this because simulcast is not
@@ -432,6 +432,11 @@ var config = {
     //    'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
     //    'tileview', 'select-background', 'download', 'help', 'mute-everyone', 'mute-video-everyone', 'security'
     // ],
+
+    toolbarButtons: [
+       'microphone', 'camera', 'desktop', 'profile', 'sharedvideo', 'settings', 'raisehand',
+       'videoquality', 'filmstrip','tileview'
+    ],
 
     // Stats
     //
@@ -827,5 +832,5 @@ var config = {
 
     // no configuration value should follow this line.
 };
-
+export default config
 /* eslint-enable no-unused-vars, no-var */
