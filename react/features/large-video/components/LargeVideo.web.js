@@ -81,8 +81,10 @@ class LargeVideo extends Component<Props> {
                     <div id = 'sharedVideoIFrame' />
                 </div>
                 <div id = 'etherpad' />
-
-                <Watermarks />
+                {/*
+                    Sally - Remove watermarks
+                    */}
+                {/*<Watermarks />*/}
 
                 <div id = 'dominantSpeaker'>
                     <div className = 'dynamic-shadow' />
