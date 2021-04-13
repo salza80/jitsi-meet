@@ -35,10 +35,10 @@ declare var interfaceConfig: Object;
  */
 function _getInitialState() {
     // Does the toolbar eventually fade out, or is it always visible?
-    let alwaysVisible = false;
+    let alwaysVisible = true;
 
     // Toolbar (initial) visibility.
-    let visible = false;
+    let visible = true;
 
     // Default toolbox timeout for mobile app.
     let timeoutMS = 5000;
