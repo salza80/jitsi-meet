@@ -129,14 +129,16 @@ function _electLastVisibleRemoteVideo(tracks) {
  * @returns {(string|undefined)}
  */
 function _electParticipantInLargeVideo(state) {
+
+
     // 1. If a participant is pinned, they will be shown in the LargeVideo
     // (regardless of whether they are local or remote).
-    const participants = state['features/base/participants'];
-    let participant = participants.find(p => p.pinned);
+    // const participants = state['features/base/participants'];
+    // let participant = participants.find(p => p.pinned);
 
-    if (participant) {
-        return participant.id;
-    }
+    // if (participant) {
+    //     return participant.id;
+    // }
 
     // 2. Next, pick the most recent remote screenshare that was added to the conference.
     const remoteScreenShares = state['features/video-layout'].remoteScreenShares;
@@ -144,6 +146,15 @@ function _electParticipantInLargeVideo(state) {
     if (remoteScreenShares?.length) {
         return remoteScreenShares[remoteScreenShares.length - 1];
     }
+
+    // sally
+    // next pick the trainer
+    const participants = state['features/base/participants'];
+    let participant = participants.find(p => p.name === 'trainer');
+
+    if (participant) {
+        return participant.id;
+    } else return null;
 
     // 3. Next, pick the dominant speaker (other than self).
     participant = participants.find(p => p.dominantSpeaker && !p.local);
