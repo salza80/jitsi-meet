@@ -4,6 +4,7 @@ import { CONFERENCE_JOINED } from '../base/conference';
 import {
     DOMINANT_SPEAKER_CHANGED,
     PARTICIPANT_JOINED,
+    PARTICIPANT_UPDATED,
     PARTICIPANT_LEFT,
     PIN_PARTICIPANT,
     getLocalParticipant
@@ -47,7 +48,14 @@ MiddlewareRegistry.register(store => next => action => {
 
         break;
     }
-    case PARTICIPANT_JOINED:
+    case PARTICIPANT_JOINED: {
+        store.dispatch(selectParticipantInLargeVideo());
+        break
+    }
+    case PARTICIPANT_UPDATED: {
+        console.log('BANG')
+        store.dispatch(selectParticipantInLargeVideo());
+    }
     case PARTICIPANT_LEFT:
     case PIN_PARTICIPANT:
     case TRACK_ADDED:
