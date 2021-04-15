@@ -196,6 +196,9 @@ class Conference extends AbstractConference<Props, *> {
                     <LargeVideo />
                     <KnockingParticipantList />
                     <Filmstrip />
+                {/*{ sally - hide labels }*/}
+                    {/*{ hideLabels || <Labels /> }*/}
+
                 </div>
 
                 { _showPrejoin || _isLobbyScreenVisible || <Toolbox /> }

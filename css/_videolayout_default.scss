@@ -168,6 +168,9 @@
         .hide-connection-indicator {
             display: none;
         }
+        .show-connection-indicator {
+            display: none;
+        }
     }
 
     &__hoverOverlay {
@@ -268,10 +271,10 @@
     position: absolute;
     left: 10%;
     width: 80%;
-    top: 50%;
+    bottom: 0;
     @include transform(translateY(-40%));
     color: $participantNameColor;
-    text-align: center;
+    text-align: left;
     text-overflow: ellipsis;
     font-size: 12px;
     font-weight: 100;
@@ -405,7 +408,7 @@
 .localvideomenu,
 .remotevideomenu
 {
-    display: inline-block;
+    display: none;
     position: absolute;
     top: 0px;
     right: 0;

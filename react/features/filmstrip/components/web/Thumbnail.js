@@ -624,11 +624,11 @@ class Thumbnail extends Component<Props, State> {
                     iconSize = { iconSize }
                     participantId = { id }
                     tooltipPosition = { tooltipPosition } />
-                { showDominantSpeaker && _participantCount > 2
+                {/* sally - remove domonant speaker indicator { showDominantSpeaker && _participantCount > 2
                     && <DominantSpeakerIndicator
                         iconSize = { iconSize }
                         tooltipPosition = { tooltipPosition } />
-                }
+                }*/}
             </div>);
     }
 

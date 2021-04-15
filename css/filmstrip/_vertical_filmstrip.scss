@@ -26,7 +26,9 @@
     flex-direction: column-reverse;
     height: 100%;
     width: 100%;
-    padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
+    // Sally
+    padding: 0;
+    // padding: ($desktopAppDragBarHeight - 5px) 5px 10px;
     /**
      * fixed positioning is necessary for remote menus and tooltips to pop
      * out of the scrolling filmstrip. AtlasKit dialogs and tooltips use
@@ -40,6 +42,7 @@
     z-index: $filmstripVideosZ;
 
     &.reduce-height {
+        // sally
         height: calc(100% - #{$newToolbarSizeWithPadding});
     }
 
@@ -86,6 +89,8 @@
             width: calc(100% - 15px);
 
             .videocontainer {
+                border: 0;
+                border-radius: 0px;
                 height: 0px;
                 width: 100%;
     }
@@ -119,8 +124,13 @@
             width: calc(100% - 8px); // 8px for margin + border of the thumbnails
 
             .videocontainer {
+                border: 0;
+                border-radius: 0px;
                 height: 0px;
                 width: 100%;
+            }
+            .active-speaker {
+                box-shadow: 0 0 2px 2px $videoThumbnailSelected
             }
         }
     }

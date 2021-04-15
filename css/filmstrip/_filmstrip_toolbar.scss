@@ -1,5 +1,6 @@
 .filmstrip__toolbar {
     @include flex();
+    display:none;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
     position: relative;

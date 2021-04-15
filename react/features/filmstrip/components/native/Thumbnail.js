@@ -163,10 +163,10 @@ function Thumbnail(props: Props) {
                 <DisplayNameLabel participantId = { participantId } />
             </Container> }
 
-            { renderModeratorIndicator
+            {/*{ renderModeratorIndicator
                 && <View style = { styles.moderatorIndicatorContainer }>
                     <ModeratorIndicator />
-                </View>}
+                </View>}*/}
 
             { !participant.isFakeParticipant && <View
                 style = { [
@@ -269,7 +269,9 @@ function _mapStateToProps(state, ownProps) {
     const participantCount = getParticipantCount(state);
     const renderDominantSpeakerIndicator = participant.dominantSpeaker && participantCount > 2;
     const _isEveryoneModerator = isEveryoneModerator(state);
-    const renderModeratorIndicator = !_isEveryoneModerator && participant.role === PARTICIPANT_ROLE.MODERATOR;
+    // sally
+    const renderModeratorIndicator = false;
+    // const renderModeratorIndicator = !_isEveryoneModerator && participant.role === PARTICIPANT_ROLE.MODERATOR;
 
     return {
         _audioMuted: audioTrack?.muted ?? true,
