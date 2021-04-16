@@ -150,7 +150,7 @@ function _electParticipantInLargeVideo(state) {
     // sally
     // next pick the trainer
     const participants = state['features/base/participants'];
-    let participant = participants.find(p => p.name === 'Trainer');
+    let participant = participants.find(p => p.name.startsWith('Trainer'));
 
     if (participant) {
         return participant.id;
