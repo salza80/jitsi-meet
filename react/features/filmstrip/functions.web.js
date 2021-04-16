@@ -196,11 +196,12 @@ export function getVerticalFilmstripVisibleAreaWidth() {
 */
 export function computeDisplayMode(input: Object) {
     // sally - show name even when not hovered
-    const isHovered = true;
+    
     const {
         isAudioOnly,
         isCurrentlyOnLargeVideo,
         isScreenSharing,
+        isHovered,
         canPlayEventReceived,
         isRemoteParticipant,
         tileViewActive
