@@ -35,6 +35,9 @@
 .videocontainer {
     position: relative;
     text-align: center;
+    .displayNameContainer {
+        visibility: visible;
+    }
 
     &__background {
         @include topLeft();
@@ -647,7 +650,7 @@
     }
 
     .displayNameContainer {
-        visibility: hidden;
+        visibility: visible;
     }
 
     .videocontainer__hoverOverlay {
@@ -683,7 +686,7 @@
     }
 
     .displayNameContainer {
-        visibility: hidden;
+        visibility: visible;
     }
 
     .videocontainer__hoverOverlay {

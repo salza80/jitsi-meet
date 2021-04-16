@@ -832,5 +832,5 @@ var config = {
 
     // no configuration value should follow this line.
 };
-export default config
+
 /* eslint-enable no-unused-vars, no-var */
