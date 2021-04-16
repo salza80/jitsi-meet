@@ -157,7 +157,8 @@ export function calculateThumbnailSizeForTileView({
     }
 
     const viewWidth = clientWidth - TILE_VIEW_SIDE_MARGINS;
-    const viewHeight = clientHeight - TILE_VIEW_SIDE_MARGINS;
+    // sally - adjust height
+    const viewHeight = clientHeight - 67;
     const initialWidth = viewWidth / columns;
     const aspectRatioHeight = initialWidth / aspectRatio;
     const height = Math.floor(Math.min(aspectRatioHeight, viewHeight / visibleRows));
