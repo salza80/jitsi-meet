@@ -156,7 +156,10 @@ class Filmstrip extends Component <Props> {
 
         // sally - trainer on top in vertical view
         if (!tileViewActive) {
-         remoteParticipants = _participants.filter(p => !p.name === 'trainer');
+         console.log('here')
+         console.log(_participants)
+         remoteParticipants = _participants.filter(p => !(p.name === 'trainer'));
+         console.log(remoteParticipants)
         }
         const trainer = _participants.find(p => p.name === 'trainer');
         switch (_currentLayout) {
@@ -233,7 +236,7 @@ class Filmstrip extends Component <Props> {
                         {/* Sally- display local video here even in filmstip view*/}
                             <div id = 'localVideoTileViewContainer'>
                                 {
-                                    !tileViewActive && <Thumbnail
+                                    tileViewActive && <Thumbnail
                                         key = 'local'
                                         participantID = { localParticipant.id } />
                                 }
