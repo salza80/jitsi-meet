@@ -150,10 +150,15 @@ class Filmstrip extends Component <Props> {
         const filmstripRemoteVideosContainerStyle = {};
         let remoteVideoContainerClassName = 'remote-videos-container';
         const { _currentLayout, _participants } = this.props;
-        const remoteParticipants = _participants.filter(p => !p.local);
+        let remoteParticipants = _participants.filter(p => !p.local);
         const localParticipant = getLocalParticipant(_participants);
         const tileViewActive = _currentLayout === LAYOUTS.TILE_VIEW;
 
+        // sally - trainer on top in vertical view
+        if (!tileViewActive) {
+         remoteParticipants = _participants.filter(p => !p.name === 'trainer');
+        }
+        const trainer = _participants.find(p => p.name === 'trainer');
         switch (_currentLayout) {
         case LAYOUTS.VERTICAL_FILMSTRIP_VIEW:
             // Adding 18px for the 2px margins, 2px borders on the left and right and 5px padding on the left and right.
@@ -196,11 +201,12 @@ class Filmstrip extends Component <Props> {
                     <div
                         className = 'filmstrip__videos'
                         id = 'filmstripLocalVideo'>
+                         {/*sally- display trainer here when not in tile view */}
                         <div id = 'filmstripLocalVideoThumbnail'>
                             {
-                                !tileViewActive && <Thumbnail
+                                !tileViewActive && trainer && <Thumbnail
                                     key = 'local'
-                                    participantID = { localParticipant.id } />
+                                    participantID = { trainer.id } />
                             }
                         </div>
                     </div>
@@ -224,9 +230,10 @@ class Filmstrip extends Component <Props> {
                                             participantID = { p.id } />
                                     ))
                             }
+                        {/* Sally- display local video here even in filmstip view*/}
                             <div id = 'localVideoTileViewContainer'>
                                 {
-                                    tileViewActive && <Thumbnail
+                                    !tileViewActive && <Thumbnail
                                         key = 'local'
                                         participantID = { localParticipant.id } />
                                 }
