@@ -110,8 +110,8 @@ export function shouldDisplayTileView(state: Object = {}) {
     const tileViewEnabledFeatureFlag = getFeatureFlag(state, TILE_VIEW_ENABLED, true);
     const { disableTileView } = state['features/base/config'];
 
-    // sally - use disabled tile view to stay in tile view or not
-    return !disableTileView
+    // // sally - use disabled tile view to stay in tile view or not
+    // return !disableTileView
 
     if (disableTileView || !tileViewEnabledFeatureFlag) {
         return false;

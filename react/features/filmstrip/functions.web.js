@@ -195,8 +195,7 @@ export function getVerticalFilmstripVisibleAreaWidth() {
  * @returns {number} - One of <tt>DISPLAY_VIDEO</tt>, <tt>DISPLAY_AVATAR</tt> or <tt>DISPLAY_BLACKNESS_WITH_NAME</tt>.
 */
 export function computeDisplayMode(input: Object) {
-    // sally - show name even when not hovered
-    
+   
     const {
         isAudioOnly,
         isCurrentlyOnLargeVideo,
