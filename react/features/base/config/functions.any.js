@@ -17,7 +17,6 @@ import interfaceConfigOverride from '../../../../interface_config'
 var configOverride = {
     startWithAudioMuted: true,
     startWithVideoMuted: true,
-    disableTileView: true,
     toolbarButtons: [
        'microphone', 'camera', 'desktop', 'profile', 'settings',
         'filmstrip'
@@ -222,15 +221,25 @@ export function setConfigFromURLParams(
         base[last] = params[param];
     }
 
+    // // Sally  local testing only...remove later
+
+    // var j = {config : configOverride, interfaceConfig: interfaceConfigOverride}
+
+    // overrideConfigJSON(config, interfaceConfig, loggingConfig, j);
+
+    // // end testing only
+
     // Sally  local testing only...remove later
 
     var j = {config : configOverride, interfaceConfig: interfaceConfigOverride}
 
     overrideConfigJSON(config, interfaceConfig, loggingConfig, j);
 
-    // end testing only
-
     overrideConfigJSON(config, interfaceConfig, loggingConfig, json);
+
+
+
+    // end testing only
 }
 
 /* eslint-enable max-params */
