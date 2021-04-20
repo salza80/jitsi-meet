@@ -1256,8 +1256,8 @@ class Toolbox extends Component<Props> {
                 <div className = 'toolbox-content-wrapper'>
                     <InviteMore />
                     <div className = 'toolbox-content-items'>
-                        { this._renderAudioButton() }
                         { this._renderVideoButton() }
+                        { this._renderAudioButton() }
                         { mainMenuAdditionalButtons }
                         { showOverflowMenuButton && <OverflowMenuButton
                             isOpen = { _overflowMenuVisible }

@@ -81,6 +81,15 @@
      * desired column count and window width. The rows are created using flex
      * and allowing the thumbnails to wrap.
      */
+
+     //sally tile view display name position
+    #alwaysOnTop .displayname,
+    .videocontainer .displayname,
+    .videocontainer .editdisplayname {
+        left: 10%;
+        bottom: -10;
+    }
+
     #filmstripRemoteVideosContainer {
         align-content: center;
         align-items: center;
