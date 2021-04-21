@@ -236,20 +236,20 @@
     justify-content: center;
     width: $newToolbarSize;
 
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            background: $newToolbarButtonHoverColor;
-        }
-    }
+    // @media (hover: hover) and (pointer: fine) {
+    //     &:hover {
+    //         background: $newToolbarButtonHoverColor;
+    //     }
+    // }
 
     @media (max-width: 320px) {
         height: 36px;
         width: 36px;
     }
 
-    &.toggled {
-        background: $newToolbarButtonToggleColor;
-    }
+    // &.toggled {
+    //     background: $newToolbarButtonToggleColor;
+    // }
 
     &.disabled {
         cursor: initial !important;
@@ -298,9 +298,9 @@
     .toolbox-icon.toggled {
         background: none;
 
-        &:hover {
-            background: $newToolbarButtonHoverColor;
-        }
+        // &:hover {
+        //     background: $newToolbarButtonHoverColor;
+        // }
     }
 
 }
