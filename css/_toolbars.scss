@@ -114,7 +114,8 @@
     text-align: center;
 
     >div {
-        margin-left: 8px;
+        // sally - remove margin spacing for toolbar buttons
+        margin-left: 0px;
 
         &:first-child {
             margin-left: 0;
