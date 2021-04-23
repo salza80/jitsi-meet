@@ -491,8 +491,8 @@ class Thumbnail extends Component<Props, State> {
                     paddingTop: `${_heightToWidthPercent}%`
                 },
                 avatar: {
-                    height: '33%',
-                    width: `${_heightToWidthPercent / 3}%`
+                    height: '20%',
+                    width: `${_heightToWidthPercent / 5}%`
                 }
             };
             break;
