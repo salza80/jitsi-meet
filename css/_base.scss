@@ -8,6 +8,14 @@
     user-select: none;
 }
 
+@font-face {
+  font-family: "audi-font";
+  font-style: normal; 
+  font-weight: normal;
+
+  src: url("https://assets.audi.com/audi-fonts/1/AudiTypeVF.woff2") format("woff2");
+}
+
 input,
 textarea {
     -webkit-user-select: text;
