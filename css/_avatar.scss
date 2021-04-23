@@ -4,6 +4,11 @@
     color: rgba(255, 255, 255, 0.6);
     font-weight: 100;
     object-fit: cover;
+    border-width: 10px;
+    border-color: $audiRed;
+    border-style: solid;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 15px rgb(245, 5, 55, .2);
 
     &.avatar-small {
         height: 28px !important;
