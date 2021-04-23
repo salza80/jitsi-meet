@@ -157,7 +157,7 @@ export function calculateThumbnailSizeForTileView({
     }
 
     const viewWidth = clientWidth - TILE_VIEW_SIDE_MARGINS;
-    // sally - adjust height
+    // sally - adjust height for new toolbar size
     const viewHeight = clientHeight - 90;
     const initialWidth = viewWidth / columns;
     const aspectRatioHeight = initialWidth / aspectRatio;
