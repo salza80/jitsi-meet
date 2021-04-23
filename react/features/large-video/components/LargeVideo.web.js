@@ -134,12 +134,10 @@ class LargeVideo extends Component<Props> {
 
             styles.backgroundColor = alphaColor;
         }
-
         if (_customBackgroundImageUrl) {
             styles.backgroundImage = `url(${_customBackgroundImageUrl})`;
             styles.backgroundSize = 'cover';
         }
-
         return styles;
     }
 }
@@ -156,11 +154,12 @@ function _mapStateToProps(state) {
     const testingConfig = state['features/base/config'].testing;
     const { backgroundColor, backgroundImageUrl } = state['features/dynamic-branding'];
     const { isOpen: isChatOpen } = state['features/chat'];
-
+    // sally set background image
+    const audiBackgroundImageUrl =  'images/BG-LOT.png'
     return {
         _backgroundAlpha: state['features/base/config'].backgroundAlpha,
         _customBackgroundColor: backgroundColor,
-        _customBackgroundImageUrl: backgroundImageUrl,
+        _customBackgroundImageUrl: audiBackgroundImageUrl,
         _isChatOpen: isChatOpen,
         _noAutoPlayVideo: testingConfig?.noAutoPlayVideo
     };
