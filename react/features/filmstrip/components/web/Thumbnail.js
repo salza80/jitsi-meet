@@ -469,7 +469,7 @@ class Thumbnail extends Component<Props, State> {
         switch (_currentLayout) {
         case LAYOUTS.TILE_VIEW:
         case LAYOUTS.HORIZONTAL_FILMSTRIP_VIEW: {
-            const avatarSize = _height / 2;
+            const avatarSize = _height / 3;
 
             styles = {
                 thumbnail: {
@@ -491,8 +491,8 @@ class Thumbnail extends Component<Props, State> {
                     paddingTop: `${_heightToWidthPercent}%`
                 },
                 avatar: {
-                    height: '50%',
-                    width: `${_heightToWidthPercent / 2}%`
+                    height: '33%',
+                    width: `${_heightToWidthPercent / 3}%`
                 }
             };
             break;

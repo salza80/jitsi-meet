@@ -88,8 +88,8 @@ export default class StatelessAvatar extends AbstractStatelessAvatar<Props> {
                         xmlnsXlink = 'http://www.w3.org/1999/xlink'>
                         <text
                             dominantBaseline = 'central'
-                            fill = 'rgba(255,255,255,.6)'
-                            fontSize = '40pt'
+                            fill = 'rgba(245,5,55)'
+                            fontSize = '24pt'
                             textAnchor = 'middle'
                             x = '50'
                             y = '50'>
@@ -121,7 +121,8 @@ export default class StatelessAvatar extends AbstractStatelessAvatar<Props> {
      */
     _getAvatarStyle(color) {
         const { size } = this.props;
-
+        // sally - Audi style
+        color = 'rgba(255,255,255)'
         return {
             backgroundColor: color || undefined,
             fontSize: size ? size * 0.5 : '180%',
