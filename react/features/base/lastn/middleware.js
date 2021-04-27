@@ -15,10 +15,14 @@ import {
     getParticipantById,
     getParticipantCount
 } from '../participants/functions';
+import {
+    CLIENT_RESIZED
+} from '../responsive-ui/actionTypes';
 import { MiddlewareRegistry } from '../redux';
 import { isLocalVideoTrackDesktop } from '../tracks/functions';
 
 import { limitLastN } from './functions';
+import { getCurrentLayout, getTileViewGridDimensions, shouldDisplayTileView, LAYOUTS } from '../../video-layout';
 import logger from './logger';
 
 declare var APP: Object;
@@ -26,8 +30,9 @@ declare var APP: Object;
 
 MiddlewareRegistry.register(store => next => action => {
     const result = next(action);
-
+    //sally - set lastn on client resise
     switch (action.type) {
+    case CLIENT_RESIZED:
     case APP_STATE_CHANGED:
     case CONFERENCE_JOINED:
     case PARTICIPANT_JOINED:
@@ -62,6 +67,11 @@ function _updateLastN({ getState }) {
     const { lastNLimits } = state['features/base/lastn'];
     const participantCount = getParticipantCount(state);
 
+
+    // sally
+    const layout = getCurrentLayout(state)
+    const { clientHeight } = state['features/base/responsive-ui'];
+
     if (!conference) {
         logger.debug('There is no active conference, not updating last N');
 
@@ -75,6 +85,14 @@ function _updateLastN({ getState }) {
 
     if (limitedLastN !== undefined) {
         lastN = lastN === -1 ? limitedLastN : Math.min(limitedLastN, lastN);
+    }
+
+    // sally  - hard code lastn to 8 for Tile View
+    if (layout === LAYOUTS.TILE_VIEW) {
+        lastN = 8
+    } else {
+        // dynamically set lastN when not in tile view based on client height
+        lastN = Math.round((clientHeight / 200))  + 1
     }
 
     if (typeof appState !== 'undefined' && appState !== 'active') {
@@ -104,6 +122,8 @@ function _updateLastN({ getState }) {
     logger.info(`Setting last N to: ${lastN}`);
 
     try {
+        console.log("SETTING LASTN")
+        console.log(lastN)
         conference.setLastN(lastN);
     } catch (err) {
         logger.error(`Failed to set lastN: ${err}`);
