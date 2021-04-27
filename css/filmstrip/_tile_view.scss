@@ -108,6 +108,9 @@
             display: block;
             margin: 2px;
         }
+        .no-video {
+            display: none;
+        }
 
         video {
             object-fit: contain;
