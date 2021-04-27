@@ -681,6 +681,28 @@ class Thumbnail extends Component<Props, State> {
         if (isRemoteParticipant && _isAudioOnly) {
             className += ' audio-only';
         }
+        // Sally -  Add additional classes for trainer
+        if (_participant.name.startsWith('Trainer')) {
+            className += ` trainer`
+        } else {
+            // add additional class for remote participants not sharing video
+            // isCurrentlyOnLargeVideo: _isCurrentlyOnLargeVideo,
+            // isHovered,
+            // isAudioOnly: _isAudioOnly,
+            // tileViewActive,
+            // isVideoPlayable: _isVideoPlayable,
+            // connectionStatus: _participant?.connectionStatus,
+            // canPlayEventReceived,
+            // videoStream: Boolean(_videoTrack),
+            // isRemoteParticipant: !_participant?.isFakeParticipant && !_participant?.local,
+            // isScreenSharing: _isScreenSharing,
+            // videoStreamMuted: _videoTrack ? _videoTrack.muted : 'no stream'
+            const dmInput = Thumbnail.getDisplayModeInput(this.props, this.state)
+            if (isRemoteParticipant && (!dmInput.isVideoPlayable || dmInput.videoStreamMuted)) {
+                className += ' no-video'
+            }
+
+        }
 
         return className;
     }
