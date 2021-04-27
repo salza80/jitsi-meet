@@ -208,15 +208,19 @@ export function computeDisplayMode(input: Object) {
     const adjustedIsVideoPlayable = input.isVideoPlayable && (!isRemoteParticipant || canPlayEventReceived);
 
     if (!tileViewActive && isScreenSharing && isRemoteParticipant) {
-        return isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
+        return DISPLAY_AVATAR
+        //return isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
     } else if (isCurrentlyOnLargeVideo && !tileViewActive) {
         // Display name is always and only displayed when user is on the stage
         return adjustedIsVideoPlayable && !isAudioOnly ? DISPLAY_BLACKNESS_WITH_NAME : DISPLAY_AVATAR_WITH_NAME;
     } else if (adjustedIsVideoPlayable && !isAudioOnly) {
         // check hovering and change state to video with name
-        return isHovered ? DISPLAY_VIDEO_WITH_NAME : DISPLAY_VIDEO;
+        // sally no hover effect
+        return DISPLAY_VIDEO;
+        //return isHovered ? DISPLAY_VIDEO_WITH_NAME : DISPLAY_VIDEO;
     }
 
     // check hovering and change state to avatar with name
-    return isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
+    return DISPLAY_AVATAR;
+    //return isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
 }
