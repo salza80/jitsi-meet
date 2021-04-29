@@ -518,6 +518,8 @@ class Thumbnail extends Component<Props, State> {
      * @returns {void}
      */
     _onClick() {
+        // gregor - disable video click
+        return;
         const { _participant, dispatch } = this.props;
         const { id, pinned } = _participant;
 
