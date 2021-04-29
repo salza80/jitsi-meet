@@ -198,6 +198,10 @@ export type Props = {|
      */
     _width: number,
 
+    // sally - hidden override
+
+    hidden: ?boolean,
+
     /**
      * The redux dispatch function.
      */
@@ -661,7 +665,7 @@ class Thumbnail extends Component<Props, State> {
     _getContainerClassName() {
         let className = 'videocontainer';
         const { displayMode } = this.state;
-        const { _isAudioOnly, _isDominantSpeakerDisabled, _isHidden, _participant } = this.props;
+        const { _isAudioOnly, _isDominantSpeakerDisabled, _isHidden, _participant, _audioTrack, hidden } = this.props;
         const isRemoteParticipant = !_participant?.local && !_participant?.isFakeParticipant;
 
         className += ` ${DISPLAY_MODE_TO_CLASS_NAME[displayMode]}`;
@@ -681,28 +685,40 @@ class Thumbnail extends Component<Props, State> {
         if (isRemoteParticipant && _isAudioOnly) {
             className += ' audio-only';
         }
-        // Sally -  Add additional classes for trainer
-        if (_participant.name.startsWith('Trainer')) {
-            className += ` trainer`
-        } else {
-            // add additional class for remote participants not sharing video
-            // isCurrentlyOnLargeVideo: _isCurrentlyOnLargeVideo,
-            // isHovered,
-            // isAudioOnly: _isAudioOnly,
-            // tileViewActive,
-            // isVideoPlayable: _isVideoPlayable,
-            // connectionStatus: _participant?.connectionStatus,
-            // canPlayEventReceived,
-            // videoStream: Boolean(_videoTrack),
-            // isRemoteParticipant: !_participant?.isFakeParticipant && !_participant?.local,
-            // isScreenSharing: _isScreenSharing,
-            // videoStreamMuted: _videoTrack ? _videoTrack.muted : 'no stream'
-            const dmInput = Thumbnail.getDisplayModeInput(this.props, this.state)
-            if (isRemoteParticipant && (!dmInput.isVideoPlayable || dmInput.videoStreamMuted)) {
-                className += ' no-video'
-            }
-
+        // sally hide participant override
+        if (hidden) {
+            className += ' hide-participant';
         }
+        // Sally -  Add additional classes for trainer
+        // if (_participant.name.startsWith('Trainer')) {
+        //     className += ` trainer-participant`
+        // } else {
+        //     // add additional class for remote participants not sharing video
+        //     // isCurrentlyOnLargeVideo: _isCurrentlyOnLargeVideo,
+        //     // isHovered,
+        //     // isAudioOnly: _isAudioOnly,
+        //     // tileViewActive,
+        //     // isVideoPlayable: _isVideoPlayable,
+        //     // connectionStatus: _participant?.connectionStatus,
+        //     // canPlayEventReceived,
+        //     // videoStream: Boolean(_videoTrack),
+        //     // isRemoteParticipant: !_participant?.isFakeParticipant && !_participant?.local,
+        //     // isScreenSharing: _isScreenSharing,
+        //     // videoStreamMuted: _videoTrack ? _videoTrack.muted : 'no stream'
+        //     const dmInput = Thumbnail.getDisplayModeInput(this.props, this.state)
+        //     if (isRemoteParticipant && (dmInput.isVideoPlayable && !dmInput.videoStreamMuted)) {
+        //         className += ' has-video'
+        //     } else if (isRemoteParticipant && _audioTrack && !_audioTrack.muted) {
+        //         className += ' audio-only'
+        //     }
+        //     if ( isRemoteParticipant && dmInput.isScreenSharing) {
+        //         className += ' sharing-screen'
+        //     }
+        //     if (_participant?.local) {
+        //         className += ' local-participant'
+        //     }
+
+        //}
 
         return className;
     }

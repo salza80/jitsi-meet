@@ -81,7 +81,7 @@
         align-self: initial;
         bottom: 5px;
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         height: auto;
         justify-content: flex-start;
 
@@ -112,14 +112,14 @@
 
         display: flex;
         flex: 1;
-        flex-direction: column-reverse;
+        flex-direction: column;
         height: auto;
         overflow-x: hidden;
         overflow-y: scroll;
 
         #filmstripRemoteVideosContainer {
             @include minHWAutoFix();
-            flex-direction: column-reverse;
+            flex-direction: column;
             overflow: visible;
             width: calc(100% - 8px); // 8px for margin + border of the thumbnails
 
@@ -128,16 +128,24 @@
                 border-radius: 0px;
                 height: 0px;
                 width: 100%;
-                order: 1;
             }
-            .active-speaker {
-                box-shadow: 0 0 0 3px $videoThumbnailSelected;
-                margin: 3px;
-                order: 5;
-            }
-            .no-video {
+            .hide-participant {
                 display: none;
             }
+            // .audio-only {
+            //     order: 8;
+            // }
+            // .has-video {
+            //     order: 10;
+            // }
+            .active-speaker {
+               box-shadow: 0 0 0 3px $videoThumbnailSelected;
+                margin: 3px;
+            //     order: 12;
+            }
+            // .trainer-participant {
+            //     order: 100 !important;
+            // }
 
         }
     }
