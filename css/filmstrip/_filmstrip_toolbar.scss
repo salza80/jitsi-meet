@@ -1,3 +1,5 @@
+
+
 .filmstrip__toolbar {
     @include flex();
     flex-direction: column-reverse;
@@ -5,8 +7,8 @@
     // position: relative;
     width: $filmstripToggleButtonWidth;
     position: absolute;
-    top: 5px;
-    left: -18px;
+    top: 0;
+    left: -42px;
 
     button {
         font-size: 10px;
@@ -30,5 +32,11 @@
         i {
             cursor: pointer;
         }
+    }
+}
+.hidden {
+    .filmstrip__toolbar{
+        left: -50px;
+        transition: left 5s;
     }
 }
