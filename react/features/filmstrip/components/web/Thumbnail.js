@@ -382,7 +382,6 @@ class Thumbnail extends Component<Props, State> {
         } = props;
         const tileViewActive = _currentLayout === LAYOUTS.TILE_VIEW;
         const { canPlayEventReceived, isHovered } = state;
-        console.log(_videoTrack)
         return {
             isCurrentlyOnLargeVideo: _isCurrentlyOnLargeVideo,
             isHovered,
@@ -669,6 +668,7 @@ class Thumbnail extends Component<Props, State> {
         const { displayMode } = this.state;
         const { _isAudioOnly, _isDominantSpeakerDisabled, _isHidden, _participant, _audioTrack, hidden } = this.props;
         const isRemoteParticipant = !_participant?.local && !_participant?.isFakeParticipant;
+        const displayModeInput = Thumbnail.getDisplayModeInput(this.props, this.state)
 
         className += ` ${DISPLAY_MODE_TO_CLASS_NAME[displayMode]}`;
 
@@ -690,6 +690,10 @@ class Thumbnail extends Component<Props, State> {
         // sally hide participant override
         if (hidden) {
             className += ' hide-participant';
+        }
+       //  Sally - black screen
+        if (!displayModeInput.videoStreamMuted && _participant?.connectionStatus !== 'active') {
+            className += ' video-unavailable'
         }
         // Sally -  Add additional classes for trainer
         // if (_participant.name.startsWith('Trainer')) {
