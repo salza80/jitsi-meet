@@ -892,6 +892,9 @@ class Thumbnail extends Component<Props, State> {
                         volume = { volume } />
                 }
                 <div className = 'videocontainer__background' />
+                <span className = 'videocontainer__notavailable'>
+                    Video is temporarily not available.
+                </span>
                 <div className = 'videocontainer__toptoolbar'>
                     { this._renderTopIndicators() }
                 </div>
