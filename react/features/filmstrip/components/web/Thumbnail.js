@@ -382,7 +382,7 @@ class Thumbnail extends Component<Props, State> {
         } = props;
         const tileViewActive = _currentLayout === LAYOUTS.TILE_VIEW;
         const { canPlayEventReceived, isHovered } = state;
-
+        console.log(_videoTrack)
         return {
             isCurrentlyOnLargeVideo: _isCurrentlyOnLargeVideo,
             isHovered,
