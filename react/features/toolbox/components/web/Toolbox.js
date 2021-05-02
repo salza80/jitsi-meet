@@ -1304,6 +1304,11 @@ function _mapStateToProps(state) {
         desktopSharingDisabledTooltipKey = 'dialog.shareYourScreenDisabled';
     }
 
+    // disable screen share for non trainers
+    if (!localParticipant?.name.startsWith('Trainer')) {
+        desktopSharingEnabled = false;
+    }
+
     return {
         _chatOpen: state['features/chat'].isOpen,
         _clientWidth: clientWidth,
