@@ -59,7 +59,8 @@
 
         &.hidden {
             bottom: auto;
-            right: -196px;
+            /* Gregor, default -196px */
+            right: -230px;
         }
 
         /**
