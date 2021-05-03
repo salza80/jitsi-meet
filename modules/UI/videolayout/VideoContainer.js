@@ -304,12 +304,12 @@ export class VideoContainer extends LargeContainer {
      */
     _getVideoSize(containerWidth, containerHeight) {
         const { width, height } = this.getStreamSize();
-
+        // sally - minus 82 for the top toolbar
         if (this.stream && this.isScreenSharing()) {
             return computeDesktopVideoSize(width,
                 height,
                 containerWidth,
-                containerHeight);
+                containerHeight - 82);
         }
 
         return computeCameraVideoSize(width,
@@ -337,9 +337,9 @@ export class VideoContainer extends LargeContainer {
             if (interfaceConfig.VERTICAL_FILMSTRIP) {
                 containerWidthToUse -= Filmstrip.getVerticalFilmstripWidth();
             }
-
+            // sally - minus 82 for the top toolbar
             return getCameraVideoPosition(width,
-                height,
+                height - 82,
                 containerWidthToUse,
                 containerHeight);
         }
