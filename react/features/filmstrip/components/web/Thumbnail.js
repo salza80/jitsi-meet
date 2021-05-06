@@ -8,6 +8,7 @@ import { Avatar } from '../../../base/avatar';
 import JitsiMeetJS from '../../../base/lib-jitsi-meet/_';
 import { MEDIA_TYPE, VideoTrack } from '../../../base/media';
 import AudioTrack from '../../../base/media/components/web/AudioTrack';
+import { Icon, IconVideoWarning } from "../../../base/icons";
 import {
     getLocalParticipant,
     getParticipantById,
@@ -844,7 +845,8 @@ class Thumbnail extends Component<Props, State> {
             _isTestModeEnabled,
             _participant,
             _startSilent,
-            _videoTrack
+            _videoTrack,
+            _width
         } = this.props;
         const { id } = _participant;
         const { audioLevel, canPlayEventReceived, volume } = this.state;
@@ -858,6 +860,7 @@ class Thumbnail extends Component<Props, State> {
         const jitsiVideoTrack = _videoTrack?.jitsiTrack;
         const videoTrackId = jitsiVideoTrack && jitsiVideoTrack.getId();
         const videoEventListeners = {};
+        const videoWarningSize = _width > 480 ? 60 : 30;
 
         if (_videoTrack && _isTestModeEnabled) {
             VIDEO_TEST_EVENTS.forEach(attribute => {
@@ -896,9 +899,16 @@ class Thumbnail extends Component<Props, State> {
                         volume = { volume } />
                 }
                 <div className = 'videocontainer__background' />
-                <span className = 'videocontainer__notavailable'>
-                    Video is temporarily not available.
-                </span>
+                <div className = 'videocontainer__notavailable'>
+                    <div className = {`${videoWarningSize <= 30 ? 'small' : 'big'}`}>
+                        <div className='notavailableIcon'>
+                            <IconVideoWarning height={videoWarningSize} width={videoWarningSize} />
+                        </div>
+                        <div className='notavailableMessage'>
+                            {`Video is temporarily not available${videoWarningSize > 30 ? ' due to issues with your infrastructure' : ''}.`}
+                        </div>
+                    </div>
+                </div>
                 <div className = 'videocontainer__toptoolbar'>
                     { this._renderTopIndicators() }
                 </div>
