@@ -285,11 +285,13 @@ class DisplayName extends Component<Props, State> {
 function _mapStateToProps(state, ownProps) {
     const { participantID } = ownProps;
     const participant = getParticipantById(state, participantID);
+    // sally - quick fix for encoded apostophe
+    let participantName = getParticipantDisplayName(state, participantID);
+    participantName = participantName.replace(/&#39;/g, "'");
 
     return {
         _configuredDisplayName: participant && participant.name,
-        _nameToDisplay: getParticipantDisplayName(
-            state, participantID)
+        _nameToDisplay: participantName
     };
 }
 
