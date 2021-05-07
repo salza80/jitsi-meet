@@ -1,0 +1,41 @@
+.notification-error {
+	div{
+		&[role='alert'] {
+			background-color: #bb0a30;
+
+		}
+	}
+}
+
+.notification-normal,
+.notification-info {
+	div{
+		color: #FFF;
+		&[role='alert'] {
+			background-color: #4c4c4c;
+			color: #FFF;
+
+		}
+		span,button{
+			color: #FFF;
+		}
+	}
+}
+
+.notification-success {
+	div{
+		&[role='alert'] {
+			background-color: #009900;
+
+		}
+	}
+}
+
+.notification-warning {
+	div{
+		&[role='alert'] {
+			background-color: #ffaa00;
+
+		}
+	}
+}

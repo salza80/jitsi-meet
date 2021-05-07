@@ -50,8 +50,10 @@ class Notification extends AbstractNotification<Props> {
             titleKey,
             uid
         } = this.props;
-
+        // sally - add class name to override notification css
+        let className = `notification-${appearance}`;
         return (
+            <div className = {className}>
             <Flag
                 actions = { this._mapAppearanceToButtons(hideErrorSupportLink) }
                 appearance = { appearance }
@@ -60,6 +62,7 @@ class Notification extends AbstractNotification<Props> {
                 id = { uid }
                 testId = { titleKey }
                 title = { title || t(titleKey, titleArguments) } />
+            </div>
         );
     }
 
