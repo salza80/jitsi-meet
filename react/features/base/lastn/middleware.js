@@ -87,13 +87,13 @@ function _updateLastN({ getState }) {
         lastN = lastN === -1 ? limitedLastN : Math.min(limitedLastN, lastN);
     }
 
-    // sally  - hard code lastn to 8 for Tile View
-    if (layout === LAYOUTS.TILE_VIEW) {
-        lastN = 5;
-    } else {
-        // dynamically set lastN when not in tile view based on client height
-        lastN = Math.round((clientHeight / 200))  + 1
-    }
+    // // sally  - hard code lastn to 6 for Tile View
+    // if (layout === LAYOUTS.TILE_VIEW) {
+    //     lastN = 6;
+    // } else {
+    //     // dynamically set lastN when not in tile view based on client height
+    //     lastN = Math.round((clientHeight / 200))  + 2
+    // }
 
     if (typeof appState !== 'undefined' && appState !== 'active') {
         lastN = isLocalVideoTrackDesktop(state) ? 1 : 0;
